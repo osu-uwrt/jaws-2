@@ -1,4 +1,6 @@
-spawncamping-octo-shame
-=======================
+# OSU Underwater Robotics Team
 
-This is only a test.
+### *2014 - 2015 Remotely Operated Vehicle*  
+
+Using: [Ubuntu 14.04 Trusty](http://releases.ubuntu.com/14.04/) | [ROS Indigo Igloo](http://wiki.ros.org/indigo) | [Boost.Asio 1.54](http://www.boost.org/doc/libs/1_54_0/doc/html/boost_asio.html)
+
