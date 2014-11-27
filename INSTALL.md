@@ -12,7 +12,7 @@ Download: “64-bit – recommended”
 
 Go to: https://www.virtualbox.org/wiki/Downloads
 
-Download: “VirtualBox 4.3.20 for <your operating system> hosts”
+Download: “VirtualBox 4.3.20 for \<your operating system> hosts”
 
 ## Create a Virtual Machine:
 
@@ -51,15 +51,14 @@ Download: “VirtualBox 4.3.20 for <your operating system> hosts”
 - Type “Columbus” and select the appropriate location from the drop down, or don’t. Click “Continue”.
 - DEFAULTS – Select “English (US)” for both, or some other language you prefer. Click “Continue”.
 - Your name: \<anything>. Your computer’s name: \<hostname>. Pick a username: \<username>. -	Click “Continue”.
-
-*Where \<username>@\<hostname>:~$ is how your command prompt will appear in your home directory.*
-
+  - *Where \<username>@\<hostname>:~$ is how your command prompt will appear in your home directory.*
 -	Make these simple. Remove “-VirtualBox” from the generated “Your computer’s name”.
 -	Your password and whether it should be required for log in is up to you.
 - Wait for Ubuntu to finish installing. This takes a few minutes. Grab a Coke.
-- Click “Reset Now”.
-- You should see the prompt “Please remove installation media and close the tray (if any) then press ENTER:”. Press “ENTER”.
-- You should now be able to log in. Do it.
+  - When installation is complete, a windows will pop up. Click “Reset Now”.
+- You should see the prompt “Please remove installation media and close the tray (if any) then press ENTER:”.
+  - Press “ENTER”.
+- You should now be able to log in. Try it.
 
 ## Install VirtualBox Guest Additions:
 
@@ -140,6 +139,8 @@ http://packages.ubuntu.com/trusty/arduino
 *You’ll see a message about being added to the “dialout” group. Click “Add”. Enter your password. Don't close it yet...*
 
 ## Tidy Up the Launcher:
+
+*You'll thank me later.*
 
 - Right-click the Arduino IDE icon on the Launcher then click "Lock to Launcher".
   - You can close it now.
