@@ -1,4 +1,7 @@
-## Get Ubuntu:
+# Development Environment Configuration
+*How to configure a virtual machine to develop code for our 2014 - 2015 MATE ROV.*
+
+## Get an Ubuntu Image:
 
 *This download takes a bit, it's about a gig.*
 
@@ -103,21 +106,21 @@ http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
     catkin_make
     source devel/setup.bash
 
-## Install Some Packages:
+## Install Required Packages:
 
-#### An SSH Server.
+#### OpenSSH Server.
 
 http://packages.ubuntu.com/trusty/openssh-server
 
     sudo apt-get install openssh-server
 
-#### A Serial Port Library:
+#### Boost.Asio Serial Library:
 
 http://packages.ubuntu.com/trusty/libasio-dev
 
     sudo apt-get install libasio-dev
 
-#### Some Joystick Utilities:
+#### (PS3) Joystick Utilities:
 
 http://packages.ubuntu.com/trusty/joystick
 
