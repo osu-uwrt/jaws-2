@@ -141,6 +141,13 @@ http://packages.ubuntu.com/trusty/arduino
 
 *You’ll see a message about being added to the “dialout” group. Click “Add”. Enter your password. Don't close it yet...*
 
+## Configure Git
+
+http://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
+
+    $ git config --global user.name "John Doe"
+    $ git config --global user.email johndoe@example.com
+
 ## Tidy Up the Launcher:
 
 *You'll thank me later.*
