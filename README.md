@@ -1,2 +1,2 @@
-# Controls
+# controls
 Tanner's project.
