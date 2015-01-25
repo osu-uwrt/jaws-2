@@ -6,3 +6,10 @@ Dependencies: [Ubuntu 14.04 Trusty](http://releases.ubuntu.com/14.04/) | [ROS In
 Submodules: [Cameras](https://github.com/uwrt-osu/cameras) | [Circuitboards](https://github.com/uwrt-osu/special-ed) | [Controls](https://github.com/uwrt-osu/controls) | [Sensors](https://github.com/uwrt-osu/imu) | [Microcontroller](https://github.com/uwrt-osu/microcontroller)
 
 Getting started: [Dev Environment Config](https://github.com/uwrt-osu/jaws-2/blob/master/INSTALL.md) | [Useful Links](https://github.com/uwrt-osu/jaws-2/blob/master/LINKS.md)
+
+
+### Reminders
+
+To get the node to work. Write down at the end of the "~ .bashrc file"
+  - source /home/<YourName>/devel/catkin_ws/bash<somethin>
+  - finish on thursday
