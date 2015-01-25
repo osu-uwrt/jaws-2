@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/andrew/catkin_ws/src/controller_test/devel/setup.sh
