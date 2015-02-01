@@ -11,5 +11,4 @@ Getting started: [Dev Environment Config](https://github.com/uwrt-osu/jaws-2/blo
 ### Reminders
 
 To get the node to work. Write down at the end of the "~ .bashrc file"
-  - source /home/<YourName>/devel/catkin_ws/bash<somethin>
-  - finish on thursday
+  - source /home/'Your Name'/catkin_ws/ devel/setup.bash
