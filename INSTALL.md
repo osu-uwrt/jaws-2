@@ -92,6 +92,7 @@ http://wiki.ros.org/indigo/Installation/Ubuntu
     sudo rosdep init
     rosdep update
     echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
+    echo "source /home/<your name>/catkin_ws/devel/setup.bash" >> ~/.bashrc
     source ~/.bashrc
     sudo apt-get install python-rosinstall
 
