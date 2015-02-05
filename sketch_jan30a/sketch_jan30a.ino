@@ -1,5 +1,7 @@
+   
    #include <ax12.h>
    #include <Servo.h>
+   
    Servo thrustOne;
    Servo thrustTwo;
    Servo thrustThree;
@@ -17,15 +19,16 @@ void loop(){
     int input[7];
     int temp;
     delay(500);
-    int characters[15];
+    int characters[20];
     Serial.print(Serial.available()+" ");
     if(Serial.peek()==45){
       Serial.read();
       while(1){
-        if(Serial.available()==20){//will change to accomadate \n
+        if(Serial.available()==20){
            Serial.print("In the if");
-           for (int i=0;i<15;i++){
-             int temp=(int)Serial.read();
+           for (int i=0;i<20;i++){
+             char temp2=(int)Serial.read();
+             int temp=(int)temp2;
              if(temp!=42 && temp!=38){
                characters[i]=temp;
              }
