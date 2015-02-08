@@ -44,6 +44,8 @@ Pins: The proper pin for your tether conductors
 
 ---
 two-pin Power Connector:
+ 
 Black = ground
+ 
 white = power
 
