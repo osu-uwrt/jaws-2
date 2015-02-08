@@ -1,6 +1,27 @@
 # Development Environment Configuration
 *How to configure a virtual machine to develop code for our 2014 - 2015 MATE ROV.*
 
+##### Contents
+* [Get an Ubuntu Image](#get-an-ubuntu-image)
+* [Install VirtualBox](#install-virtualbox)
+* [Create a Virtual Machine](#create-a-virtual-machine)
+* [Configure the Virtual Machine](#configure-the-virtual-machine)
+* [Install the Operating System](#install-the-operating-system)
+* [Install VirtualBox Guest Additions](#install-virtualbox-guest-additions)
+* [Install ROS](#install-ros)
+* [Create a ROS Workspace](#create-a-ros-workspace)
+* Install Required Packages
+    * [OpenSSH Server](#openssh-server)
+    * [Boost.Asio Serial Library](#boost.asio-serial-library)
+    * [(PS3) Joystick Utilities](#ps3-joystick-utilities)
+    * [The Arduino IDE](#the-arduino-ide)
+* [Configure Git](#configure-git)
+* [Tidy Up the Launcher](#tidy-up-the-launcher)
+
+##### Note
+*When you see \<things-n-stuff\>, it's basically variable. Change it to match your system.*
+
+
 ## Get an Ubuntu Image:
 
 *This download takes a bit, it's about a gig.*
@@ -15,7 +36,7 @@ Download: “64-bit – recommended”
 
 Go to: https://www.virtualbox.org/wiki/Downloads
 
-Download: “VirtualBox 4.3.20 for \<your operating system> hosts”
+Download: “VirtualBox 4.3.20 for \<your-operating-system> hosts”
 
 ## Create a Virtual Machine:
 
@@ -92,7 +113,6 @@ http://wiki.ros.org/indigo/Installation/Ubuntu
     sudo rosdep init
     rosdep update
     echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
-    echo "source /home/<your name>/catkin_ws/devel/setup.bash" >> ~/.bashrc
     source ~/.bashrc
     sudo apt-get install python-rosinstall
 
@@ -105,11 +125,12 @@ http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
     catkin_init_workspace
     cd ~/<catkin_ws>/
     catkin_make
-    source devel/setup.bash
+    echo "source /home/<username>/catkin_ws/devel/setup.bash" >> ~/.bashrc
+    source ~/.bashrc
 
 ## Install Required Packages:
 
-#### OpenSSH Server.
+#### OpenSSH Server:
 
 http://packages.ubuntu.com/trusty/openssh-server
 
