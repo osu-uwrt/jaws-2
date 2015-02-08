@@ -167,9 +167,9 @@ int main(int argc, char **argv) {
   nh.param<int>("baudrate", baudrate, 115200);
   nh.param<std::string>("frameId", frameId, std::string("imu"));
   nh.param<int>("imu_rate", requestedImuRate, 100);
-  nh.param<int>("filter_rate", requestedFilterRate, 100);
-  nh.param<bool>("enable_filter", enableFilter, false);
-  nh.param<bool>("enable_mag_update", enableMagUpdate, false);
+  nh.param<int>("filter_rate", requestedFilterRate, 50);
+  nh.param<bool>("enable_filter", enableFilter, true);
+  nh.param<bool>("enable_mag_update", enableMagUpdate, true);
   nh.param<bool>("enable_accel_update", enableAccelUpdate, true);
   
   if (requestedFilterRate < 0 || requestedImuRate < 0) {
