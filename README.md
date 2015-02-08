@@ -6,6 +6,8 @@
 
 Upload design files once ordered.
 
+DC-DC converter threads are M3 x .5.  says to not allow screw to protrude at all
+
 ## Tether
 
 ### MATE Required connector:
