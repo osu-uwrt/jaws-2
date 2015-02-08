@@ -6,3 +6,4 @@ This project belongs to Charles.
 
 * [imu_3dm_gx4](http://wiki.ros.org/imu_3dm_gx4) - Can we just use this?
 * [sensor_messages](http://wiki.ros.org/sensor_msgs) - IMU message documentation.
+* [microstrain_3dmgx2_imu](https://wili.ros.org/microstrain_3dmgx2_imu) - another node we can use
