@@ -5,6 +5,22 @@ This link is a tutorial on how to pair a ps3 controller using ps3joy.
 
 *** In order to power and control the thruster, all three cables must be connected.***
 
+
+### Connecting a PS3 Controller
+
+https://help.ubuntu.com/community/Sixaxis
+
+Connect using a USB cable, then type:
+
+    sudo sixpair
+    
+Disconnect the USB cable, then type:
+
+    sixad -s
+    
+Press the PS button, wait for rumbling.
+
+
 ## Reference Links
 
 ### Linux
