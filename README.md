@@ -41,6 +41,9 @@ Pins: The proper pin for your tether conductors
 
 6 AWG: Anderson 1339G2-BK 
 
----
 
+---
+two-pin Power Connector:
+Black = ground
+white = power
 
