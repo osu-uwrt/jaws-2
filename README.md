@@ -1,6 +1,6 @@
 # Jaws Messages
 
-*Contains custom generated messages for Jaws 2.*
+*Contains custom-generated messages for Jaws 2.*
 
 Built on top of [`std_msgs`](http://wiki.ros.org/std_msgs) and [`common_msgs`](http://wiki.ros.org/common_msgs).
 
