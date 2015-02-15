@@ -17,29 +17,28 @@ void loop(){
   delay(100);
     int i;
     int input[7];
-    String finals[5];
+    int finals[5];
     int temp;
-    int sequence[20];
+    int sequence[12];
     if(Serial.peek()==45){
       Serial.read();
-      for (int i=0;i<20;i++){
-         int temp2=(Serial.read());
-         sequence[i]=temp2-'0';
+      for (int i=0;i<12;i++){
+         sequence[i]=(Serial.read());
       }
 
-     finals[0]=String(sequence[0])+String(sequence[1])+String(sequence[2]);
-     finals[1]=String(sequence[4])+String(sequence[5])+String(sequence[6]);
-     finals[2]=String(sequence[8])+String(sequence[9])+String(sequence[10]);
-     finals[3]=String(sequence[12])+String(sequence[13])+String(sequence[14]);
-     finals[4]=String(sequence[16])+String(sequence[17])+String(sequence[18]);
+     finals[0]=256*sequence[1]+sequence[0];
+     finals[1]=256*sequence[3]+sequence[2];
+     finals[2]=256*sequence[5]+sequence[4];
+     finals[3]=256*sequence[7]+sequence[6];
+     finals[4]=256*sequence[9]+sequence[8];
      
       Serial.println(finals[0]+" "+finals[1]+" "+finals[2]+" "+finals[3]+" "+finals[4]);
-      SetPosition(servoNumOne,finals[0].toInt()*angleToServ);
-      SetPosition(servoNumTwo,finals[1].toInt()*angleToServ);
+      SetPosition(servoNumOne,finals[0]*angleToServ);
+      SetPosition(servoNumTwo,finals[1]*angleToServ);
       
-      thrustOne.write(finals[2].toInt());
-      thrustTwo.write(finals[3].toInt());
-      thrustThree.write(finals[4].toInt());
+      thrustOne.write(finals[2]);
+      thrustTwo.write(finals[3]);
+      thrustThree.write(finals[4]);
       }
       else{
        Serial.println(Serial.read()); 
