@@ -24,15 +24,15 @@ public:
   }
   void callback(const sensor_msgs::Joy::ConstPtr& joy)
   {
-    float thrust = joy->axes[1] * -127.0; //thruster power
+    float thrust = joy->axes[1] * 127.0; //thruster power
     float power_port = thrust; //power of port thruster
     float power_stbd = thrust; //power of stbd thruster
-    float power_port_yaw = joy->axes[8] * -127.0; //"power" of port for yaw
-    float power_stbd_yaw = joy->axes[9] * -127.0; //"power" of stbd for yaw
+    float power_port_yaw = joy->axes[12] * -127.0; //"power" of port for yaw
+    float power_stbd_yaw = joy->axes[13] * -127.0; //"power" of stbd for yaw
 
     angle_stbd.data = 90 + joy->axes[2] * 90; //angle of stbd thruster
     angle_port.data = 90 + joy->axes[2] * 90; //angle of port thruster
-    power_vect.x = joy->axes[3] * -127.0; //power for the aft thruster in x
+    power_vect.x = joy->axes[3] * 127.0; //power for the aft thruster in x
     power_vect.y = power_port - power_port_yaw; //power for port thruster y
     power_vect.z = power_stbd - power_stbd_yaw; //power for stbd thruster z
 
