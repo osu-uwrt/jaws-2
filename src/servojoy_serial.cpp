@@ -19,10 +19,13 @@ sub = nh.subscribe<std_msgs::Float32>("angle", 1, &SerialPort::callback, this);
 }
 void callback(const std_msgs::Float32::ConstPtr& angle)
 {
-int angle_L=angle->data;
-int angle_R
-unsigned char[] d[12];
-d[0]= "-";
+int port_angle=angle->data;
+int stbd_angle;
+int port_thruster;
+int stbd_thruster;
+int back_thruster;
+unsigned char d[12];
+d[0]= '-';
 d[1]=port_angle & 0xFF;
 d[2]=(port_angle >> 8) & 0xFF;
 
@@ -38,7 +41,6 @@ d[8]=(stbd_thruster >> 8) & 0xFF;
 d[9]=back_thruster & 0xFF;
 d[10]=(back_thruster >> 8) & 0xFF;
 
-d[11]="&";
 
 
  s_p.write_some(boost::asio::buffer(&d, 12));

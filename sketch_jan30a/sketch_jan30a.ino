@@ -19,10 +19,10 @@ void loop(){
     int input[7];
     int finals[5];
     int temp;
-    int sequence[12];
+    int sequence[10];
     if(Serial.peek()==45){
       Serial.read();
-      for (int i=0;i<12;i++){
+      for (int i=0;i<10;i++){
          sequence[i]=(Serial.read());
       }
 
@@ -41,7 +41,7 @@ void loop(){
       thrustThree.write(finals[4]);
       }
       else{
-       Serial.println(Serial.read()); 
+       Serial.read(); 
       }
 
     }
