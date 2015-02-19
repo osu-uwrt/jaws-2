@@ -4,7 +4,7 @@
 Arduino to Motors works, use all three cables (Power, Ground, PWM Signal) 
 Need to run controller_test_node and controller_test_serial as well as ps3 controller setup stuff
 
-I don't have the microcontroller on hand nor servos so there is no way to test this. However, it should work. One problem is that the arbotix does not support more than two traditional PWM outputs. Conor mentioned this is how we would do the thrusters so that's something we need to discuss on sunday.
+Peter, Andrew and some consulting from Charles.
 
 ## Reference Links
 * [ArbotiX](http://wiki.ros.org/arbotix) - ROS metapackage.
