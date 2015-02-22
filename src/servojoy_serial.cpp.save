@@ -13,10 +13,16 @@ ros::Subscriber subPower;
 std_msgs::Float32 angle;
 boost::asio::io_service i_o;
 boost::asio::serial_port s_p;
-float angle_port;
-float angle_board;
-float xyz[3];
+void callback(const std_msgs::Float32::ConstPtr& subStbd)
+{
+ float angle_board = subStbd->data;
+ s_p.write_some(boost::asio::buffer(&angle_board, 1));
+}
+
 public:
+float angle_port=0;
+float angle_board=0;
+float xyz={0,0,0};
 SerialPort() : nh(), i_o(), s_p(i_o, "/dev/ttyUSB0")
 
 {
@@ -28,13 +34,11 @@ subPower = nh.subscribe<geometry_msgs::Vector3>("power_vect",1,&SerialPort::call
 void callback(const std_msgs::Float32::ConstPtr& subStbd)
 {
  angle_board = subStbd->data;
-writeSerial();
 }
 
 void callback2(const std_msgs::Float32::ConstPtr& subPort)
 {
  angle_port = subPort->data;
-writeSerial();
 }
 
 void callback3(const geometry_msgs::Vector3::ConstPtr& subPower)
@@ -42,16 +46,13 @@ void callback3(const geometry_msgs::Vector3::ConstPtr& subPower)
  xyz[0]=subPower->x;
  xyz[1]=subPower->y;
  xyz[2]=subPower->z;
-writeSerial();
 
 }
-void writeSerial()
-{
 int port_angle =floor(angle_port+.5);
 int board_angle = angle_board;
 int back_thruster = xyz[0];
 int port_thruster = xyz[1];
-int stbd_thruster = xyz[2];
+int board_thruster = xyz[2];
 unsigned char d[12];
 d[0]= '-';
 d[1]=port_angle & 0xFF;
@@ -69,10 +70,9 @@ d[8]=(stbd_thruster >> 8) & 0xFF;
 d[9]=back_thruster & 0xFF;
 d[10]=(back_thruster >> 8) & 0xFF;
 
-ROS_INFO("%d",port_thruster);
 
 s_p.write_some(boost::asio::buffer(&d, 12));
-}
+
 
 void loop()
 {

@@ -32,10 +32,9 @@ void loop(){
      finals[3]=256*sequence[7]+sequence[6];
      finals[4]=256*sequence[9]+sequence[8];
      
-      Serial.println(finals[0]+" "+finals[1]+" "+finals[2]+" "+finals[3]+" "+finals[4]);
       SetPosition(servoNumOne,finals[0]*angleToServ);
       SetPosition(servoNumTwo,finals[1]*angleToServ);
-      
+      Serial.println(finals[0]+" "+finals[1]);
       thrustOne.write(finals[2]);
       thrustTwo.write(finals[3]);
       thrustThree.write(finals[4]);

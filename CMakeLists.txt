@@ -105,6 +105,8 @@ include_directories(
 ## Declare a cpp executable
 add_executable(servo_node src/servojoy_node.cpp)
 add_executable(servo_runner src/servojoy_serial.cpp)
+add_executable(talker_node src/talker_node.cpp)
+
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -117,7 +119,9 @@ target_link_libraries(servo_node
 target_link_libraries(servo_runner
   ${catkin_LIBRARIES}
 )
-
+target_link_libraries(talker_node
+	${catkin_LIBRARIES}
+)
 #############
 ## Install ##
 #############
