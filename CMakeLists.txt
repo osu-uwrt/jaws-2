@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(controller_test)
+project(microcontroller)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -103,18 +103,18 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-add_executable(controller_test_node src/servojoy_node.cpp)
-add_executable(controller_test_serial src/servojoy_serial.cpp)
+add_executable(servo_node src/servojoy_node.cpp)
+add_executable(servo_runner src/servojoy_serial.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(controller_test_node controller_test_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(controller_test_node
+target_link_libraries(servo_node
   ${catkin_LIBRARIES}
 )
-target_link_libraries(controller_test_serial
+target_link_libraries(servo_runner
   ${catkin_LIBRARIES}
 )
 
