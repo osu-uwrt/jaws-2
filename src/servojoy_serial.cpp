@@ -11,7 +11,7 @@ std_msgs::Float32 angle;
 boost::asio::io_service i_o;
 boost::asio::serial_port s_p;
 public:
-SerialPort() : nh(), i_o(), s_p(i_o, "/dev/ttyACM0")
+SerialPort() : nh(), i_o(), s_p(i_o, "/dev/ttyUSB0")
 
 {
 
