@@ -53,7 +53,7 @@ void loop()
 };
 int main(int argc, char **argv)
 {
-ros::init(argc, argv, "serial_node");
+ros::init(argc, argv, "servo_node_runner");
 SerialPort sp;
 sp.loop();
 }

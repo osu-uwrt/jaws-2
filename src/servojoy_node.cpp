@@ -34,7 +34,7 @@ public:
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "ds3_node");
+  ros::init(argc, argv, "servo_node");
   PS3Controller ps3;
   ps3.loop();
 }
