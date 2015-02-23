@@ -2,9 +2,7 @@
 
 *Contains custom-generated messages for Jaws 2.*
 
-Built on top of [`std_msgs`](http://wiki.ros.org/std_msgs) and [`common_msgs`](http://wiki.ros.org/common_msgs).
-
-Add `jaws_msgs` as dependency just as you would any other set of messages.
+Add `jaws_msgs` as dependency like you would any other set of messages.
 
 # Message API/Definitions
 
