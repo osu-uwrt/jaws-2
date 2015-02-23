@@ -6,8 +6,7 @@ project(microcontroller)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  sensor_msgs
-  std_msgs
+  jaws_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -103,25 +102,17 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-add_executable(servo_node src/servojoy_node.cpp)
-add_executable(servo_runner src/servojoy_serial.cpp)
-add_executable(talker_node src/talker_node.cpp)
-
+add_executable(arbotix_node src/arbotix_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(controller_test_node controller_test_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(servo_node
+target_link_libraries(arbotix_node
   ${catkin_LIBRARIES}
 )
-target_link_libraries(servo_runner
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(talker_node
-	${catkin_LIBRARIES}
-)
+
 #############
 ## Install ##
 #############
