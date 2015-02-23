@@ -16,7 +16,8 @@ class Arbotix
     }
     void callback(const jaws_msgs::Thrusters::ConstPtr& thrusters)
     {
-      unsigned char d[12];
+      int size = 11;
+      unsigned char d[size];
 
       d[0] = '-';
       d[1] = thrusters->port_angle & 0xFF;
@@ -34,7 +35,7 @@ class Arbotix
       d[9] = thrusters->aft_power & 0xFF;
       d[10] = (thrusters->aft_power >> 8) & 0xFF;
 
-      s_p.write_some(boost::asio::buffer(&d, 12));
+      s_p.write_some(boost::asio::buffer(&d, size));
     }
     void loop()
     {
