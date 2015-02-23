@@ -52,7 +52,7 @@ int board_angle = angle_board;
 int back_thruster = xyz[0];
 int port_thruster = xyz[1];
 int stbd_thruster = xyz[2];
-unsigned char d[12];
+unsigned char d[11];
 d[0]= '-';
 d[1]=port_angle & 0xFF;
 d[2]=(port_angle >> 8) & 0xFF;
@@ -71,7 +71,7 @@ d[10]=(back_thruster >> 8) & 0xFF;
 
 ROS_INFO("%d",port_thruster);
 
-s_p.write_some(boost::asio::buffer(&d, 12));
+s_p.write_some(boost::asio::buffer(&d, 11));
 }
 
 void loop()
