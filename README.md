@@ -1,12 +1,6 @@
 # controls
-Tanner's project. I am changing this.
 
-This link is a tutorial on how to pair a ps3 controller using ps3joy.
-
-*** In order to power and control the thruster, all three cables must be connected.***
-
-
-### Connecting a PS3 Controller
+## Connecting a PS3 Controller
 
 https://help.ubuntu.com/community/Sixaxis
 
@@ -20,6 +14,15 @@ Disconnect the USB cable, then type:
     
 Press the PS button, wait for rumbling.
 
+## Troubleshooting
+
+### No Bluetooth?
+
+    sudo apt-get install bluez --reinstall
+    
+### Thrust Non-responsive?
+
+*** In order to power and control the thruster, all three cables must be connected.***
 
 ## Reference Links
 
