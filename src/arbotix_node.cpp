@@ -5,37 +5,41 @@
 class Arbotix
 {
   private:
+    ros::NodeHandle prm;
     ros::NodeHandle nh;
     ros::Subscriber sub;
     boost::asio::io_service i_o;
     boost::asio::serial_port s_p;
+    std::string port_name;
   public:
-    Arbotix() : nh(), i_o(), s_p(i_o, "/dev/ttyACM0")
+    Arbotix() : prm("~"), nh(), i_o(), s_p(i_o)
     {
+      prm.param<std::string>("port", port_name, "/dev/ttyACM0");
+      s_p.open(port_name);
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
     void callback(const jaws_msgs::Thrusters::ConstPtr& thrusters)
     {
-      int size = 11;
-      unsigned char d[size];
+      const int SIZE = 11;
+      unsigned char packet[SIZE];
 
-      d[0] = '-';
-      d[1] = thrusters->port_angle & 0xFF;
-      d[2] = (thrusters->port_angle >> 8) & 0xFF;
+      packet[0] = '-';
+      packet[1] = thrusters->port_angle & 0xFF;
+      packet[2] = (thrusters->port_angle >> 8) & 0xFF;
 
-      d[3] = thrusters->stbd_angle & 0xFF;
-      d[4] = (thrusters->stbd_angle >> 8) & 0xFF;
+      packet[3] = thrusters->stbd_angle & 0xFF;
+      packet[4] = (thrusters->stbd_angle >> 8) & 0xFF;
 
-      d[5] = thrusters->port_power & 0xFF;
-      d[6] = (thrusters->port_power >> 8) & 0xFF;
+      packet[5] = thrusters->port_power & 0xFF;
+      packet[6] = (thrusters->port_power >> 8) & 0xFF;
 
-      d[7] = thrusters->stbd_power & 0xFF;
-      d[8] = (thrusters->stbd_power >> 8) & 0xFF;
+      packet[7] = thrusters->stbd_power & 0xFF;
+      packet[8] = (thrusters->stbd_power >> 8) & 0xFF;
 
-      d[9] = thrusters->aft_power & 0xFF;
-      d[10] = (thrusters->aft_power >> 8) & 0xFF;
+      packet[9] = thrusters->aft_power & 0xFF;
+      packet[10] = (thrusters->aft_power >> 8) & 0xFF;
 
-      s_p.write_some(boost::asio::buffer(&d, size));
+      s_p.write_some(boost::asio::buffer(&packet, SIZE));
     }
     void loop()
     {
