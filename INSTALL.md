@@ -125,7 +125,7 @@ http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
     catkin_init_workspace
     cd ~/<catkin_ws>/
     catkin_make
-    echo "source /home/<username>/catkin_ws/devel/setup.bash" >> ~/.bashrc
+    echo "source /home/<username>/<catkin_ws>/devel/setup.bash" >> ~/.bashrc
     source ~/.bashrc
 
 ## Install Required Packages:
