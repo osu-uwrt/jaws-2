@@ -10,12 +10,10 @@ class Arbotix
     ros::Subscriber sub;
     boost::asio::io_service i_o;
     boost::asio::serial_port s_p;
-    std::string port_name;
   public:
-    Arbotix() : prm("~"), nh(), i_o(), s_p(i_o)
+    Arbotix() : nh(), i_o(), s_p(i_o, "/dev/ttyUSB1")
     {
-      prm.param<std::string>("port", port_name, "/dev/ttyACM0");
-      s_p.open(port_name);
+      s_p.set_option(boost::asio::serial_port_base::baud_rate(38400));
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
     void callback(const jaws_msgs::Thrusters::ConstPtr& thrusters)
