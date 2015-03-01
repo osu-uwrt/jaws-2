@@ -3,8 +3,6 @@
 *Jaws 2's ArbotiX-M serial port driver.*
 
 ## To-Do's
-* Add Arduino sketch back into repo.
-* Arduino library setup instructions.
 * Troubleshoot desync (baud rate?).
 
 ## Reference Links
