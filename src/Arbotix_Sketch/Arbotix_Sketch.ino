@@ -23,8 +23,7 @@ void loop(){
   int finals[5];
   int temp;
   int sequence[10];
-  if(Serial.peek()==45){
-    Serial.read();
+  if(Serial.read()==45){
     for (int i=0;i<10;i++){
       sequence[i]=(Serial.read());
     }
