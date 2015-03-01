@@ -1,4 +1,4 @@
-Getting started with the Arbotix-M
+tGetting started with the Arbotix-M
 
 1. First off: Install the Arduino suite:
 
