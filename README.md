@@ -7,3 +7,7 @@
 * [ArbotiX Intro](http://learn.trossenrobotics.com/arbotix) - Trossen Robotics
     * [Hardware](http://learn.trossenrobotics.com/arbotix/arbotix-getting-started/38-arbotix-m-hardware-overview#&panel1-1) - ArbotiX-M Overview
     * [Powering](http://learn.trossenrobotics.com/arbotix/arbotix-advanced-topics/40-powering-the-arbotix-m) - Hobby Servo BUS
+
+Arduino Command Line Programming:
+
+https://github.com/arduino/Arduino/blob/ide-1.5.x/build/shared/manpage.adoc
