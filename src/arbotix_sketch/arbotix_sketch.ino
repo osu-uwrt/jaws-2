@@ -17,7 +17,7 @@ const float ANGLE_CONVERSION = 4096.0/360.0;
 
 void setup()
 {
-  Serial.begin(38400);
+  Serial.begin(9600);
 
   SetPosition(PORT_SERVO, 90 * ANGLE_CONVERSION);
   SetPosition(STBD_SERVO, 90 * ANGLE_CONVERSION);
@@ -35,11 +35,11 @@ void loop()
     {
       packet[i] = Serial.read();
     }
-    int port_angle = packet[0] * 256 + packet[1];
-    int stbd_angle = packet[2] * 256 + packet[3];
-    int aft_power = packet[4] * 256 + packet[5];
-    int port_power = packet[6] * 256 + packet[7];
-    int stbd_power = packet[8] * 256 + packet[9];
+    int port_angle = (packet[0] << 8) | packet[1];
+    int stbd_angle = (packet[2] << 8) | packet[3];
+    int aft_power = (packet[4] << 8) | packet[5];
+    int port_power = (packet[6] << 8) | packet[7];
+    int stbd_power = (packet[8] << 8) | packet[9];
 
     SetPosition(PORT_SERVO, port_angle * ANGLE_CONVERSION);
     SetPosition(STBD_SERVO, stbd_angle * ANGLE_CONVERSION);
