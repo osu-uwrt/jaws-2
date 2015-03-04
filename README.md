@@ -1,9 +1,6 @@
-# microcontroller
+# Jaws Arbotix
 
-*Jaws 2's ArbotiX-M serial port driver.*
-
-## To-Do's
-* Troubleshoot desync (baud rate?).
+*Jaws 2's ArbotiX-M firmware and ROS bridge.*
 
 ## Reference Links
 * [Boost.Asio](http://www.boost.org/doc/libs/1_54_0/doc/html/boost_asio.html) - C++ Serial.
