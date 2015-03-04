@@ -7,13 +7,13 @@ const int STBD_SERVO = 15;
 const int PACKET_SIZE = 10;
 byte packet[PACKET_SIZE];
 
-const int POWER_CONVERSION = 90/127;
+const float POWER_CONVERSION = 90.0/127.0;
 
 Servo aft_thruster;
 Servo port_thruster;
 Servo stbd_thruster;
 
-const int ANGLE_CONVERSION = 4096/360;
+const float ANGLE_CONVERSION = 4096.0/360.0;
 
 void setup()
 {
@@ -49,4 +49,3 @@ void loop()
     stbd_thruster.write(stbd_power * POWER_CONVERSION + 90);
   }
 }
-
