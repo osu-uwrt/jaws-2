@@ -9,11 +9,13 @@
 * [Install the Operating System](#install-the-operating-system)
 * [Install VirtualBox Guest Additions](#install-virtualbox-guest-additions)
 * [Install ROS](#install-ros)
+* Install ROS Dependencies
+    * [Joystick Drivers](#joystick-drivers)
 * [Create a ROS Workspace](#create-a-ros-workspace)
 * Install Required Packages
     * [OpenSSH Server](#openssh-server)
     * [Boost.Asio Serial Library](#boost.asio-serial-library)
-    * [(PS3) Joystick Utilities](#ps3-joystick-utilities)
+    * [Joystick Utilities](#joystick-utilities)
     * [The Arduino IDE](#the-arduino-ide)
 * [Configure Git](#configure-git)
 * [Tidy Up the Launcher](#tidy-up-the-launcher)
@@ -116,6 +118,14 @@ http://wiki.ros.org/indigo/Installation/Ubuntu
     source ~/.bashrc
     sudo apt-get install python-rosinstall
 
+## Install ROS Dependencies
+
+#### Joystick Drivers
+
+http://wiki.ros.org/joystick_drivers?distro=indigo
+
+    sudo apt-get install ros-indigo-joystick-drivers
+
 ## Create a ROS Workspace:
 
 http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
@@ -142,7 +152,7 @@ http://packages.ubuntu.com/trusty/libasio-dev
 
     sudo apt-get install libasio-dev
 
-#### (PS3) Joystick Utilities:
+#### Joystick Utilities:
 
 http://packages.ubuntu.com/trusty/joystick
 
