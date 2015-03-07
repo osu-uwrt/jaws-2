@@ -1,52 +1,50 @@
 #include "ros/ros.h"
-#include "std_msgs/Float32.h"
 #include "sensor_msgs/Joy.h"
-#include "geometry_msgs/Vector3.h"
 #include "jaws_msgs/Thrusters.h"
 
-class PS3Controller
+class Controls
 {
-private:
-  ros::NodeHandle nh;
-  ros::Publisher pub_thruster; //publisher for thruster message
-  ros::Subscriber sub;           //subscriber for joy
-  jaws_msgs::Thruster thruster; //creates thruster message
-public:
-  PS3Controller() : nh()
-  {
-    pub_thruster = nh.advertise<jaws_msgs::Thruster>("thruster", 1);
-    sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &PS3Controller::callback, this);
-  }
-  void callback(const sensor_msgs::Joy::ConstPtr& joy)
-  {
-    float thrust = joy->axes[1] * -127.0; //thruster power
-    float power_port = thrust; //power of port thruster
-    float power_stbd = thrust; //power of stbd thruster
-    float power_port_yaw = joy->axes[8] * -127.0; //"power" of port for yaw
-    float power_stbd_yaw = joy->axes[9] * -127.0; //"power" of stbd for yaw
-
-    thruster.stbd_angle = 90 + joy->axes[2] * 90; //angle of stbd thruster
-    thruster.port_angle = 90 + joy->axes[2] * 90; //angle of port thruster
-    thruster.aft_power = joy->axes[3] * -127.0; //power for the aft thruster
-    thruster.port_power = power_port - power_port_yaw; //power for port thrust
-    thruster.stbd_power = power_stbd - power_stbd_yaw; //power for stbd thrust
-
-    pub_thruster.publish(thruster);
-  }
-  void loop()
-  {
-    ros::Rate rate(10);
-    while(ros::ok())
+  private:
+    ros::NodeHandle nh;
+    ros::Publisher pub;
+    ros::Subscriber sub;
+    jaws_msgs::Thrusters thrusters;
+  public:
+    Controls() : nh()
     {
-      ros::spinOnce();
-      rate.sleep();
+      sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &Controls::callback, this);
+      pub = nh.advertise<jaws_msgs::Thrusters>("thrusters", 1);
     }
-  }
+    void callback(const sensor_msgs::Joy::ConstPtr& joy)
+    {
+      float raw_thrust = joy->axes[1] * 127.0;
+      float stbd_power = raw_thrust;
+      float port_power = raw_thrust;
+      float stbd_yaw = joy->axes[13] * -127.0;
+      float port_yaw = joy->axes[12] * -127.0;
+
+      thrusters.stbd_angle = (int)(90 + joy->axes[2] * 90);
+      thrusters.port_angle = (int)(90 + joy->axes[2] * 90);
+      thrusters.aft_power = (int)(joy->axes[3] * 127.0);
+      thrusters.stbd_power = (int)(stbd_power - stbd_yaw);
+      thrusters.port_power = (int)(port_power - port_yaw);
+
+      pub.publish(thrusters);
+    }
+    void loop()
+    {
+      ros::Rate rate(10);
+      while(ros::ok())
+      {
+        ros::spinOnce();
+        rate.sleep();
+      }
+    }
 };
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "ds3_node");
-  PS3Controller ps3;
-  ps3.loop();
+  ros::init(argc, argv, "controls_node");
+  Controls controls;
+  controls.loop();
 }
