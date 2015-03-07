@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>controls</name>
+  <name>jaws_controls</name>
   <version>0.1.0</version>
   <description>Pilot controls for Jaws 2.</description>
 
