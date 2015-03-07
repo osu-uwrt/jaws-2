@@ -7,13 +7,15 @@ const int STBD_SERVO = 15;
 const int PACKET_SIZE = 10;
 byte packet[PACKET_SIZE];
 
-const float POWER_CONVERSION = 90.0/127.0;
+const float POWER_CONVERSION = 9.0/127.0; // 90.0/127.0
 
 Servo aft_thruster;
 Servo port_thruster;
 Servo stbd_thruster;
 
 const float ANGLE_CONVERSION = 4096.0/360.0;
+
+int heartbeat = 0;
 
 void setup()
 {
@@ -25,12 +27,22 @@ void setup()
   aft_thruster.attach(12);
   port_thruster.attach(14);
   stbd_thruster.attach(13);
+
+  aft_thruster.write(90);
+  port_thruster.write(90);
+  stbd_thruster.write(90);
+  
+  pinMode(0, OUTPUT);
+  digitalWrite(0, heartbeat);
 }
 
 void loop()
 {
   if(Serial.available() > PACKET_SIZE && Serial.read() == '-')
   {
+    heartbeat = !heartbeat;
+    digitalWrite(0, heartbeat);
+
     for(int i = 0; i < PACKET_SIZE; i++)
     {
       packet[i] = Serial.read();
@@ -49,3 +61,4 @@ void loop()
     stbd_thruster.write(stbd_power * POWER_CONVERSION + 90);
   }
 }
+
