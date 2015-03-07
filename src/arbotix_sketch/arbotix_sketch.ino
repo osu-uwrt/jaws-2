@@ -7,7 +7,7 @@ const int STBD_SERVO = 15;
 const int PACKET_SIZE = 10;
 byte packet[PACKET_SIZE];
 
-const float POWER_CONVERSION = 90.0/127.0;
+const float POWER_CONVERSION = 9.0/127.0; // 90.0/127.0
 
 Servo aft_thruster;
 Servo port_thruster;
@@ -15,7 +15,7 @@ Servo stbd_thruster;
 
 const float ANGLE_CONVERSION = 4096.0/360.0;
 
-int heartbeat = 1;
+int heartbeat = 0;
 
 void setup()
 {
