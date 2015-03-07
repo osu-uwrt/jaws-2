@@ -1,6 +1,10 @@
-# Power
+# Circuitboards and Power
 
-*Conor is da bes.*
+## TODO
+* PDB v1.2 - Wider drills?
+* Power distribution diagram.
+* Collect datasheets.
+* Clean up power connector info below.
 
 ## PDB
 
