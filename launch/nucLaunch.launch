@@ -1,0 +1,5 @@
+<launch>
+	<env name="ROS_MASTER_URI" value="http://rov:11311/"></env>
+	<node name="arbotix_node" pkg="microcontroller" type="arbotix_node"></node>
+	<param name="port" value="/dev/ttyUSB0"></param>
+</launch>

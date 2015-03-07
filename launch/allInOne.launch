@@ -1,0 +1,16 @@
+<launch>
+	<machine name="thegrid" address="http://thegrid:11311/" default="false"
+	user="flynn" password="flynn" timeout="20.0"></machine>
+
+	<machine name="rov" address="http://rov:11311/" default="true"
+	user="ros" password="ros" timeout="20.0"></machine>	
+	
+	<env name="ROS_MASTER_URI" value ="http://rov:11311/"></env>
+	<node name="controls_node" machine="thegrid" pkg="controls" type="controls_node"></node>
+	<node name = "joy_node" pkg="joy" type="joy_node" machine="thegrid"></node>
+	<node name = "arbotix_node" machine="rov" pkg="microcontroller" type="arbotix_node"></node>
+	
+	<param name="port" value="/dev/ttyUSB0"></param>
+	
+
+</launch>

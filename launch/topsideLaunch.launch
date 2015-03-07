@@ -1,0 +1,5 @@
+<launch>
+	<env name="ROS_MASTER_URI" value ="http://rov:11311/"></env>
+	<node name="controls_node" pkg="controls" type="controls_node"></node>
+	<node name = "joy_node" pkg="joy" type="joy_node"></node>
+</launch>
