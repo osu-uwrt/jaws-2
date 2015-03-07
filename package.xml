@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>jaws-controls</name>
+  <name>controls</name>
   <version>0.1.0</version>
   <description>Pilot controls for Jaws 2.</description>
 
@@ -12,7 +12,7 @@
   <url type="website">http://go.osu.edu/uwrt</url>
   <url type="repository">https://github.com/uwrt/jaws-controls</url>
 
-  <!-- <author email="strickland.120@osu.edu">Tanner Strickland</author>
+  <author email="strickland.120@osu.edu">Tanner Strickland</author>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
