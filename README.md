@@ -1,4 +1,4 @@
-# controls
+# Jaws Controls
 
 ## Connecting a PS3 Controller
 
@@ -20,10 +20,6 @@ Press the PS button, wait for rumbling.
 
     sudo apt-get install bluez --reinstall
     
-### Thrust Non-responsive?
-
-*** In order to power and control the thruster, all three cables must be connected.***
-
 ## Reference Links
 
 ### Linux
