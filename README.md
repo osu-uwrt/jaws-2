@@ -5,10 +5,7 @@
 ## TODO
 * Failsafes
     * ArbotiX serial timeout.
-    * NUC watchdog reset.
-* Parameters
-    * Serial port name.
-    * Serial port rate.
+    * NUC watchdog reset
 * Controls
     * Servo angle feedback.
     * Servo.writeMicroseconds()
