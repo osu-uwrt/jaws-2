@@ -11,6 +11,8 @@ class Arbotix
     boost::asio::serial_port s_p;
     std::string port_name;
     int br;
+    char c;
+    std::string feedback;
   public:
     Arbotix() : nh(), i_o(), s_p(i_o)
     {
@@ -44,6 +46,15 @@ class Arbotix
       packet[10] = thrusters->stbd_power & 0xFF;
 
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
+     
+      while(c!="\n"){
+         c=s_p.read_some(boost::asio::buffer(&c,1);
+         if(c!="\n"){
+ 	   feedback+=c;
+	 }
+      }
+     ROS_INFO("%s",feedback);
+
     }
     void loop()
     {
