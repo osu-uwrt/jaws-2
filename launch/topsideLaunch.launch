@@ -1,9 +1,13 @@
 <launch>
-	<!--<env name="ROS_MASTER_URI" value ="http://rov:11311/"></env>-->
+
 	<node name="controls_node" pkg="jaws_controls" type="controls_node">
-	<param name="stbd_thrust_multiplier" value="1"/>
-	<param name="port_thrust_multiplier" value="1"/>
-	<param name="controls_refresh_rate" value="10"/>
+		<param name="stbd_thrust_multiplier" value="1"/>
+		<param name="port_thrust_multiplier" value="1"/>
+		<param name="controls_refresh_rate" value="10"/>
 	</node>
-	<node name = "joy_node" pkg="joy" type="joy_node"></node>
+
+	<node name ="joy_node" pkg="joy" type="joy_node">
+		<param name="dev" value="/dev/input/js2"/>
+	</node>
+
 </launch>
