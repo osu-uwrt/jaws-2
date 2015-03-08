@@ -1,7 +1,6 @@
 #include "ros/ros.h"
 #include "sensor_msgs/Joy.h"
 #include "jaws_msgs/Thrusters.h"
-//#include "string"
 
 class Controls
 {
