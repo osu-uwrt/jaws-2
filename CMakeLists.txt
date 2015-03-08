@@ -21,6 +21,7 @@ include_directories(${Boost_INCLUDE_DIR})
 add_definitions("-std=c++0x -Wall -Werror")
 
 add_executable(${PROJECT_NAME} src/imu_3dm_gx4.cpp src/imu.cpp)
+ add_executable(${PROJECT_NAME} src/euler_angles_node.cpp)
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
