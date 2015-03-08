@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>launch</name>
+  <name>jaws_launch</name>
   <version>0.1.0</version>
   <description>ROS launch files for Jaws 2.</description>
 
