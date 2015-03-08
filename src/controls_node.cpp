@@ -19,16 +19,14 @@ class Controls
     {
       sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &Controls::callback, this);
       pub = nh.advertise<jaws_msgs::Thrusters>("thrusters", 1);
-      nh.param("stbd_thrust_multiplier",stbd_thrust_mult,1);
-      nh.param("port_thrust_multiplier",port_thrust_mult,1);
-      nh.param("controls_refresh_rate",refresh_rate,10);
-
     }
     void callback(const sensor_msgs::Joy::ConstPtr& joy)
     {
+      nh.getParam("/controls_node/port_thrust_multiplier",port_thrust_mult);
+      nh.getParam("/controls_node/stbd_thrust_multiplier",stbd_thrust_mult);	
       float raw_thrust = joy->axes[1] * 127.0;
-      float stbd_power = raw_thrust*nh.getParam("stbd_thrust_multiplier",stbd_thrust_mult);
-      float port_power = raw_thrust*nh.getParam("port_thrust_multiplier",port_thrust_mult);
+      float port_power = raw_thrust*port_thrust_mult;      
+      float stbd_power = raw_thrust*stbd_thrust_mult;
       float stbd_yaw = joy->axes[13] * -127.0;
       float port_yaw = joy->axes[12] * -127.0;
 
@@ -42,7 +40,7 @@ class Controls
     }
     void loop()
     {
-      
+      nh.getParam("/controls_node/controls/refresh_rate",refresh_rate);
       ros::Rate rate(refresh_rate);
       while(ros::ok())
       {
