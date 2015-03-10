@@ -46,7 +46,7 @@ class Arbotix
       packet[10] = thrusters->stbd_power & 0xFF;
 
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
-     
+
       while(c!="\n"){
          c=s_p.read_some(boost::asio::buffer(&c,1);
          if(c!="\n"){
@@ -60,7 +60,7 @@ class Arbotix
     {
       ros::spin();
     }
-};
+}
 
 int main(int argc, char **argv)
 {
