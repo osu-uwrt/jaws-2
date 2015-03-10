@@ -1,7 +1,7 @@
 #include "ros/ros.h"
 #include "boost/asio.hpp"
 #include "jaws_msgs/Thrusters.h"
-#include "time.h"
+
 class Arbotix
 {
   private:
@@ -65,6 +65,7 @@ class Arbotix
 	}
 	if((clock()-start/CLOCKS_PER_SEC)>5000){
 	   restartPort();
+	   feedback="Port reset, resuming";
 	   break;
 	}
       }
@@ -75,7 +76,7 @@ class Arbotix
     {
       ros::spin();
     }
-};
+}
 
 int main(int argc, char **argv)
 {
