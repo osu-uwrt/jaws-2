@@ -46,7 +46,6 @@ class Controls
         ros::spinOnce();
         rate.sleep();
       }
-      nh.getParam("controls_refresh_rate",refresh_rate);
     }
 };
 
