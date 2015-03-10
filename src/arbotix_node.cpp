@@ -1,7 +1,7 @@
 #include "ros/ros.h"
 #include "boost/asio.hpp"
 #include "jaws_msgs/Thrusters.h"
-
+#include "time.h"
 class Arbotix
 {
   private:
@@ -23,11 +23,20 @@ class Arbotix
 
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
+    void restartPort()
+    {
+	nh.getParam("/arbotix_node/port_name",port_name);
+	nh.getParam("/arbotix_node/baud_rate",br);
+	s_p.close();
+        s_p.open(port_name);
+	s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
+    }
     void callback(const jaws_msgs::Thrusters::ConstPtr& thrusters)
     {
       const int SIZE = 11;
       unsigned char packet[SIZE];
-
+	
+      unsigned int start=clock();
       packet[0] = '-';
 
       packet[1] = (thrusters->port_angle >> 8) & 0xFF;
@@ -41,19 +50,25 @@ class Arbotix
 
       packet[7] = (thrusters->port_power >> 8) & 0xFF;
       packet[8] = thrusters->port_power & 0xFF;
-
       packet[9] = (thrusters->stbd_power >> 8) & 0xFF;
       packet[10] = thrusters->stbd_power & 0xFF;
 
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
-     
-      while(c!="\n"){
-         c=s_p.read_some(boost::asio::buffer(&c,1);
-         if(c!="\n"){
+      c='a';
+      while(c!='\n'){
+         c=s_p.read_some(boost::asio::buffer(&c,1));
+         if(c!='\n'){
  	   feedback+=c;
 	 }
+	else{
+		break;
+	}
+	if((clock()-start/CLOCKS_PER_SEC)>5000){
+	   restartPort();
+	   break;
+	}
       }
-     ROS_INFO("%s",feedback);
+     ROS_INFO("%s",feedback.c_str());
 
     }
     void loop()
