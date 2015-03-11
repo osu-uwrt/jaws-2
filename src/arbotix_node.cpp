@@ -64,7 +64,7 @@ class Arbotix
  	   feedback+=c;
 	 }
 	else{
-		break;
+	   break;
 	}
 	if((clock()-start/CLOCKS_PER_SEC)>timeout){
 	   restartPort();
