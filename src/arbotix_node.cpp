@@ -57,7 +57,7 @@ class Arbotix
 
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
       c='a';
-//      nh.getParam("/arbotix_node/timeout",timeout);
+      nh.getParam("/arbotix_node/timeout",timeout);
       while(c!='\n'){
          c=s_p.read_some(boost::asio::buffer(&c,1));
          if(c!='\n'){
