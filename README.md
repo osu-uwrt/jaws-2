@@ -2,7 +2,7 @@
 
 ## TODO
 * Startup instructions.
-* Roll, Pitch, Yaw for controls.
+* Roll, Pitch, Yaw for controls.--Done
 * Look at tf & urdf.
 
 ## Reference Links
