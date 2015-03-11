@@ -2,6 +2,10 @@
 
 ## TODO
 * Startup instructions.
+   * 1. Make sure IMU is plugged in
+   * 2. make permission of dev/ttyACM0 to 755
+   * 3. master is running
+   * 4. rosrun imu_3dm_gx4 imu_3dm_gx4 euler_angles_node
 * Roll, Pitch, Yaw for controls.--Done
 * Look at tf & urdf.
 
