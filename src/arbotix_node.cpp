@@ -19,7 +19,7 @@ class Arbotix
     {
       nh.getParam("/arbotix_node/port_name",port_name);
       nh.getParam("/arbotix_node/baud_rate",br);
-      nh.getParam("/arbotix_node/timeout",timeout);
+      nh.param("/arbotix_node/timeout",timeout,2000);
       s_p.open(port_name);
       s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
 
