@@ -12,12 +12,14 @@ class Arbotix
     std::string port_name;
     int br;
     char c;
+    int timeout;
     std::string feedback;
   public:
     Arbotix() : nh(), i_o(), s_p(i_o)
     {
       nh.getParam("/arbotix_node/port_name",port_name);
       nh.getParam("/arbotix_node/baud_rate",br);
+      nh.getParam("/arbotix_node/timeout",timeout);
       s_p.open(port_name);
       s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
 
@@ -55,6 +57,7 @@ class Arbotix
 
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
       c='a';
+//      nh.getParam("/arbotix_node/timeout",timeout);
       while(c!='\n'){
          c=s_p.read_some(boost::asio::buffer(&c,1));
          if(c!='\n'){
@@ -63,20 +66,19 @@ class Arbotix
 	else{
 		break;
 	}
-	if((clock()-start/CLOCKS_PER_SEC)>5000){
+	if((clock()-start/CLOCKS_PER_SEC)>timeout){
 	   restartPort();
 	   feedback="Port reset, resuming";
 	   break;
 	}
       }
      ROS_INFO("%s",feedback.c_str());
-
     }
     void loop()
     {
       ros::spin();
     }
-}
+};
 
 int main(int argc, char **argv)
 {
