@@ -60,7 +60,7 @@ class Arbotix
     {
       ros::spin();
     }
-}
+};
 
 int main(int argc, char **argv)
 {
