@@ -39,14 +39,14 @@ class Controls
     }
     void loop()
     {
-      nh.getParam("/controls_node/controls/refresh_rate",refresh_rate);
+      nh.getParam("/controls_node/controls_refresh_rate",refresh_rate);
       ros::Rate rate(refresh_rate);
       while(ros::ok())
       {
         ros::spinOnce();
         rate.sleep();
       }
-      nh.getParam("controls_refresh_rate",refresh_rate);
+
     }
 };
 
