@@ -46,10 +46,6 @@ class Controls
         ros::spinOnce();
         rate.sleep();
       }
-<<<<<<< HEAD
-
-=======
->>>>>>> 329e5713cc2e62ec26bc86c95e3747ad3f88f1ef
     }
 };
 
