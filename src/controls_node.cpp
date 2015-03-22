@@ -3,6 +3,8 @@
 #include "jaws_msgs/Thrusters.h"
 //#include "string"
 
+const float MAX_THRUST = 500.0;
+
 class Controls
 {
   private:
@@ -26,23 +28,27 @@ class Controls
     }
     void callback(const sensor_msgs::Joy::ConstPtr& joy)
     {
-      float raw_thrust = joy->axes[1] * 127.0;
-      float stbd_power = raw_thrust*nh.getParam("stbd_thrust_multiplier",stbd_thrust_mult);
-      float port_power = raw_thrust*nh.getParam("port_thrust_multiplier",port_thrust_mult);
-      float stbd_yaw = joy->axes[13] * -127.0;
-      float port_yaw = joy->axes[12] * -127.0;
+      float raw_thrust = joy->axes[1] * MAX_THRUST;
+//      float stbd_power = raw_thrust*nh.getParam("stbd_thrust_multiplier",stbd_thrust_mult);
+//      float port_power = raw_thrust*nh.getParam("port_thrust_multiplier",port_thrust_mult);
+      float stbd_power = (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
+      float port_power = (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
+      float stbd_yaw = 1 + joy->axes[13];
+      float port_yaw = 1 + joy->axes[12];
+
+      float aft_thrust = joy->axes[3] * MAX_THRUST;
+      float aft_power = (aft_thrust * aft_thrust * aft_thrust) / (MAX_THRUST * MAX_THRUST); 
 
       thrusters.stbd_angle = (int)(90 + joy->axes[2] * 90);
       thrusters.port_angle = (int)(90 + joy->axes[2] * 90);
-      thrusters.aft_power = (int)(joy->axes[3] * 127.0);
-      thrusters.stbd_power = (int)(stbd_power - stbd_yaw);
-      thrusters.port_power = (int)(port_power - port_yaw);
+      thrusters.aft_power = (int)(1500 + aft_power);
+      thrusters.stbd_power = (int)(1500 + stbd_power * stbd_yaw);
+      thrusters.port_power = (int)(1500 + port_power * port_yaw);
 
       pub.publish(thrusters);
     }
     void loop()
     {
-      
       ros::Rate rate(refresh_rate);
       while(ros::ok())
       {
