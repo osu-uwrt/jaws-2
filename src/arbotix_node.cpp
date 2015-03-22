@@ -1,6 +1,8 @@
 #include "ros/ros.h"
 #include "boost/asio.hpp"
 #include "jaws_msgs/Thrusters.h"
+#include <iostream>
+
 
 class Arbotix
 {
@@ -14,10 +16,17 @@ class Arbotix
   public:
     Arbotix() : nh(), i_o(), s_p(i_o)
     {
+      std::cout << "Calling constructor..." << std::endl;
+
       nh.getParam("/arbotix_node/port_name",port_name);
       nh.getParam("/arbotix_node/baud_rate",br);
-      s_p.open(port_name);
-      s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
+//      s_p.open(port_name);
+      s_p.open("/dev/ttyUSB0");
+//      s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
+      s_p.set_option(boost::asio::serial_port_base::baud_rate(9600));
+
+      std::cout << "Serial port open..." << std::endl;
+
 
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
@@ -44,6 +53,8 @@ class Arbotix
       packet[10] = thrusters->stbd_power & 0xFF;
 
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
+
+      std::cout << "." << std::endl;
     }
     void loop()
     {
