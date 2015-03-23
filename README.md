@@ -2,8 +2,6 @@
 
 ## TODO
 * Parameters
-    * Node spin/refresh rate (Hz).
-    * Thruster calibration coefficients.
     * Yaw power reduction coefficients.
 * Servo.writeMicroseconds()
 * Yaw power reduction multiply not add.

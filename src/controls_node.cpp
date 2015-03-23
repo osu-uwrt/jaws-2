@@ -1,7 +1,6 @@
 #include "ros/ros.h"
 #include "sensor_msgs/Joy.h"
 #include "jaws_msgs/Thrusters.h"
-//#include "string"
 
 const float MAX_THRUST = 500.0;
 
@@ -16,23 +15,26 @@ class Controls
     int stbd_thrust_mult;
     int port_thrust_mult;
     int refresh_rate;
+
   public:
     Controls() : nh()
     {
+      nh.param<int>("/controls_node/port_thrust_multiplier", port_thrust_mult, 1);
+      ROS_INFO("Port multiplier: %i", port_thrust_mult);
+      nh.param<int>("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult, 1);
+      ROS_INFO("Starboard multiplier: %i", stbd_thrust_mult);
+      nh.param<int>("/controls_node/controls_refresh_rate", refresh_rate, 10);
+      ROS_INFO("Refresh rate: %i", refresh_rate);
+
       sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &Controls::callback, this);
       pub = nh.advertise<jaws_msgs::Thrusters>("thrusters", 1);
-      nh.param("stbd_thrust_multiplier",stbd_thrust_mult,1);
-      nh.param("port_thrust_multiplier",port_thrust_mult,1);
-      nh.param("controls_refresh_rate",refresh_rate,10);
-
     }
+
     void callback(const sensor_msgs::Joy::ConstPtr& joy)
     {
       float raw_thrust = joy->axes[1] * MAX_THRUST;
-//      float stbd_power = raw_thrust*nh.getParam("stbd_thrust_multiplier",stbd_thrust_mult);
-//      float port_power = raw_thrust*nh.getParam("port_thrust_multiplier",port_thrust_mult);
-      float stbd_power = (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
-      float port_power = (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
+      float stbd_power = stbd_thrust_mult * (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
+      float port_power = port_thrust_mult * (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
       float stbd_yaw = 1 + joy->axes[13];
       float port_yaw = 1 + joy->axes[12];
 
@@ -47,6 +49,7 @@ class Controls
 
       pub.publish(thrusters);
     }
+
     void loop()
     {
       ros::Rate rate(refresh_rate);
@@ -55,15 +58,12 @@ class Controls
         ros::spinOnce();
         rate.sleep();
       }
-      nh.getParam("controls_refresh_rate",refresh_rate);
     }
 };
 
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "controls_node");
-
   Controls controls;
- 
   controls.loop();
 }
