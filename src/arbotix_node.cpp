@@ -2,6 +2,7 @@
 #include "boost/asio.hpp"
 #include "jaws_msgs/Thrusters.h"
 
+
 class Arbotix
 {
   private:
@@ -10,19 +11,24 @@ class Arbotix
     boost::asio::io_service i_o;
     boost::asio::serial_port s_p;
     std::string port_name;
-    int br;
     char c;
     std::string feedback;
+    int baud_rate;
+
   public:
     Arbotix() : nh(), i_o(), s_p(i_o)
     {
-      nh.getParam("/arbotix_node/port_name",port_name);
-      nh.getParam("/arbotix_node/baud_rate",br);
+      nh.param<std::string>("/arbotix_node/port_name", port_name, "/dev/ttyUSB0");
+      nh.param<int>("/arbotix_node/baud_rate", baud_rate, 9600);
+
       s_p.open(port_name);
-      s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
+      ROS_INFO("Serial port: %s ", port_name.c_str());
+      s_p.set_option(boost::asio::serial_port_base::baud_rate(9600));
+      ROS_INFO("Baud rate: %i", baud_rate);
 
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
+
     void callback(const jaws_msgs::Thrusters::ConstPtr& thrusters)
     {
       const int SIZE = 11;
@@ -30,20 +36,20 @@ class Arbotix
 
       packet[0] = '-';
 
-      packet[1] = (thrusters->port_angle >> 8) & 0xFF;
-      packet[2] = thrusters->port_angle & 0xFF;
+      packet[1] = (thrusters->port_angle >> 8);
+      packet[2] = thrusters->port_angle;
 
-      packet[3] = (thrusters->stbd_angle >> 8) & 0xFF;
-      packet[4] = thrusters->stbd_angle & 0xFF;
+      packet[3] = (thrusters->stbd_angle >> 8);
+      packet[4] = thrusters->stbd_angle;
 
-      packet[5] = (thrusters->aft_power >> 8) & 0xFF;
-      packet[6] = thrusters->aft_power & 0xFF;
+      packet[5] = (thrusters->aft_power >> 8);
+      packet[6] = thrusters->aft_power;
 
-      packet[7] = (thrusters->port_power >> 8) & 0xFF;
-      packet[8] = thrusters->port_power & 0xFF;
+      packet[7] = (thrusters->port_power >> 8);
+      packet[8] = thrusters->port_power;
 
-      packet[9] = (thrusters->stbd_power >> 8) & 0xFF;
-      packet[10] = thrusters->stbd_power & 0xFF;
+      packet[9] = (thrusters->stbd_power >> 8);
+      packet[10] = thrusters->stbd_power;
 
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
 
@@ -56,6 +62,7 @@ class Arbotix
      ROS_INFO("%s",feedback);
 
     }
+
     void loop()
     {
       ros::spin();
