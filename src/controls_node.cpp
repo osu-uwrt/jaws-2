@@ -46,7 +46,23 @@ class Controls
       thrusters.aft_power = (int)(1500 + aft_power);
       thrusters.stbd_power = (int)(1500 + stbd_power * stbd_yaw);
       thrusters.port_power = (int)(1500 + port_power * port_yaw);
-
+      //*** I don't know if the below axes indices are correct. 
+      //*** Supposed to be the D-pad, doesnt matter which.
+      if(joy->axes[5]>0){
+	stbd_thrust_mult+=1;
+      }
+      else if(joy->axes[6]>0){
+ 	stbd_thrust_mult-=1;
+      }
+      if(joy->axes[7]>0){
+	port_thrust_mult+=1;
+      }
+      else if(joy->axes[8]>0){
+	port_thrust_mult-=1;
+      }
+      nh.setParam("/controls_node/port_thrust_multiplier",port_thrust_mult);
+      nh.setParam("/controls_node/stbd_thrust_multiplier",stbd_thrust_mult);
+      ROS_INFO("Current PTM: %3i - Current STM: %3i",port_thrust_mult,stbd_thrust_mult);
       pub.publish(thrusters);
     }
 
