@@ -30,6 +30,7 @@ class Controls
 
       stbd_thrust_mult=(float) stbd_thrust_mult_pull;
       port_thrust_mult=(float) port_thrust_mult_pull;
+
       sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &Controls::callback, this);
       pub = nh.advertise<jaws_msgs::Thrusters>("thrusters", 1);
     }
