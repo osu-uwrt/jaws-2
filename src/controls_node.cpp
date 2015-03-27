@@ -60,8 +60,8 @@ class Controls
       else if(joy->axes[8]>0){
 	port_thrust_mult-=1;
       }
-      nh.setParam("/controls_node/port_thrust_multiplier",port_thrust_mult);
-      nh.setParam("/controls_node/stbd_thrust_multiplier",stbd_thrust_mult);
+     // nh.setParam("/controls_node/port_thrust_multiplier",port_thrust_mult);
+     // nh.setParam("/controls_node/stbd_thrust_multiplier",stbd_thrust_mult);
       ROS_INFO("Current PTM: %3i - Current STM: %3i",port_thrust_mult,stbd_thrust_mult);
       pub.publish(thrusters);
     }
