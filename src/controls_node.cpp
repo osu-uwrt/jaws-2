@@ -12,17 +12,17 @@ class Controls
     ros::Publisher pub;
     ros::Subscriber sub;
     jaws_msgs::Thrusters thrusters;
-    int stbd_thrust_mult;
-    int port_thrust_mult;
+    float stbd_thrust_mult;
+    float port_thrust_mult;
     int refresh_rate;
 
   public:
     Controls() : nh()
     {
-      nh.param<int>("/controls_node/port_thrust_multiplier", port_thrust_mult, 1);
-      ROS_INFO("Port multiplier: %i", port_thrust_mult);
-      nh.param<int>("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult, 1);
-      ROS_INFO("Starboard multiplier: %i", stbd_thrust_mult);
+      nh.getParam("/controls_node/port_thrust_multiplier", port_thrust_mult, 1);
+      ROS_INFO("Port multiplier: %f", port_thrust_mult);
+      nh.getParam("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult, 1);
+      ROS_INFO("Starboard multiplier: %f", stbd_thrust_mult);
       nh.param<int>("/controls_node/controls_refresh_rate", refresh_rate, 10);
       ROS_INFO("Refresh rate: %i", refresh_rate);
 
@@ -49,20 +49,20 @@ class Controls
       //*** I don't know if the below axes indices are correct. 
       //*** Supposed to be the D-pad, doesnt matter which.
       if(joy->axes[5]>0){
-	stbd_thrust_mult+=1;
+	stbd_thrust_mult+=0.001;
       }
       else if(joy->axes[6]>0){
- 	stbd_thrust_mult-=1;
+ 	stbd_thrust_mult-=0.001;
       }
       if(joy->axes[7]>0){
-	port_thrust_mult+=1;
+	port_thrust_mult+=0.001;
       }
       else if(joy->axes[8]>0){
-	port_thrust_mult-=1;
+	port_thrust_mult-=0.001;
       }
      // nh.setParam("/controls_node/port_thrust_multiplier",port_thrust_mult);
      // nh.setParam("/controls_node/stbd_thrust_multiplier",stbd_thrust_mult);
-      ROS_INFO("Current PTM: %3i - Current STM: %3i",port_thrust_mult,stbd_thrust_mult);
+      ROS_INFO("Current PTM: %4f - Current STM: %4f",port_thrust_mult,stbd_thrust_mult);
       pub.publish(thrusters);
     }
 
