@@ -12,6 +12,8 @@ class Controls
     ros::Publisher pub;
     ros::Subscriber sub;
     jaws_msgs::Thrusters thrusters;
+    int stbd_thrust_mult_pull;
+    int port_thrust_mult_pull;
     float stbd_thrust_mult;
     float port_thrust_mult;
     int refresh_rate;
@@ -19,13 +21,15 @@ class Controls
   public:
     Controls() : nh()
     {
-      nh.getParam("/controls_node/port_thrust_multiplier", port_thrust_mult, 1);
-      ROS_INFO("Port multiplier: %f", port_thrust_mult);
-      nh.getParam("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult, 1);
-      ROS_INFO("Starboard multiplier: %f", stbd_thrust_mult);
+      nh.param<int>("/controls_node/port_thrust_multiplier", port_thrust_mult_pull, 1.0);
+      ROS_INFO("Port multiplier: %i", port_thrust_mult_pull);
+      nh.param<int>("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult_pull, 1.0);
+      ROS_INFO("Starboard multiplier: %i", stbd_thrust_mult_pull);
       nh.param<int>("/controls_node/controls_refresh_rate", refresh_rate, 10);
       ROS_INFO("Refresh rate: %i", refresh_rate);
 
+      stbd_thrust_mult=(float) stbd_thrust_mult_pull;
+      port_thrust_mult=(float) port_thrust_mult_pull;
       sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &Controls::callback, this);
       pub = nh.advertise<jaws_msgs::Thrusters>("thrusters", 1);
     }
@@ -60,10 +64,10 @@ class Controls
       else if(joy->axes[8]>0){
 	port_thrust_mult-=0.001;
       }
-     // nh.setParam("/controls_node/port_thrust_multiplier",port_thrust_mult);
-     // nh.setParam("/controls_node/stbd_thrust_multiplier",stbd_thrust_mult);
+
       ROS_INFO("Current PTM: %4f - Current STM: %4f",port_thrust_mult,stbd_thrust_mult);
       pub.publish(thrusters);
+
     }
 
     void loop()
