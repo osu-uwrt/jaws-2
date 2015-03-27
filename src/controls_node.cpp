@@ -21,11 +21,11 @@ class Controls
   public:
     Controls() : nh()
     {
-      nh.param<int>("/controls_node/port_thrust_multiplier", port_thrust_mult_pull, 1.0);
+      nh.param("/controls_node/port_thrust_multiplier", port_thrust_mult_pull, 1);
       ROS_INFO("Port multiplier: %i", port_thrust_mult_pull);
-      nh.param<int>("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult_pull, 1.0);
+      nh.param("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult_pull, 1);
       ROS_INFO("Starboard multiplier: %i", stbd_thrust_mult_pull);
-      nh.param<int>("/controls_node/controls_refresh_rate", refresh_rate, 10);
+      nh.param("/controls_node/controls_refresh_rate", refresh_rate, 10);
       ROS_INFO("Refresh rate: %i", refresh_rate);
 
       stbd_thrust_mult=(float) stbd_thrust_mult_pull;
