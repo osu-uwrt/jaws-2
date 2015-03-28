@@ -73,7 +73,7 @@ class Arbotix
 	 }
 	else{
 	   break;
-	   #ifdef DIAGNOTIS_PUBLISH
+	   #ifdef DIAGNOSTIC_PUBLISH
 	    pub.publish(feedback);
 	   #endif
 	}
