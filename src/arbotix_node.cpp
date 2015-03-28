@@ -1,15 +1,18 @@
 #include "ros/ros.h"
 #include "boost/asio.hpp"
 #include "jaws_msgs/Thrusters.h"
+#include "std_msgs/String.h"
 
 #define FEEDBACK
 #define RESET
+#define DIAGNOSTIC_PUBLISH
 
 class Arbotix
 {
   private:
     ros::NodeHandle nh;
     ros::Subscriber sub;
+    ros::Publisher pub;
     boost::asio::io_service i_o;
     boost::asio::serial_port s_p;
     std::string port_name;
@@ -25,7 +28,8 @@ class Arbotix
       nh.param("/arbotix_node/timeout",timeout,2000);
       s_p.open(port_name);
       s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
-
+     
+      pub=nh.advertise<std_msgs::String>("arbotix_diagnostic",2);
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
     void restartPort()
@@ -69,6 +73,9 @@ class Arbotix
 	 }
 	else{
 	   break;
+	   #ifdef DIAGNOTIS_PUBLISH
+	    pub.publish(feedback);
+	   #endif
 	}
         #ifdef RESET
 	if((clock()-start/CLOCKS_PER_SEC)>timeout){
