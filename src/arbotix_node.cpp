@@ -2,6 +2,9 @@
 #include "boost/asio.hpp"
 #include "jaws_msgs/Thrusters.h"
 
+#define FEEDBACK
+#define RESET
+
 class Arbotix
 {
   private:
@@ -58,6 +61,7 @@ class Arbotix
       s_p.write_some(boost::asio::buffer(&packet, SIZE));
       c='a';
       nh.getParam("/arbotix_node/timeout",timeout);
+      #ifdef FEEDBACK
       while(c!='\n'){
          c=s_p.read_some(boost::asio::buffer(&c,1));
          if(c!='\n'){
@@ -66,13 +70,16 @@ class Arbotix
 	else{
 	   break;
 	}
+        #ifdef RESET
 	if((clock()-start/CLOCKS_PER_SEC)>timeout){
 	   restartPort();
 	   feedback="Port reset, resuming";
 	   break;
 	}
+        #endif
       }
      ROS_INFO("%s",feedback.c_str());
+     #endif
     }
     void loop()
     {
