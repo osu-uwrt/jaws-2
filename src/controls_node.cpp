@@ -2,7 +2,7 @@
 #include "sensor_msgs/Joy.h"
 #include "jaws_msgs/Thrusters.h"
 
-const float MAX_THRUST = 500.0;
+#define THRUSTER_CALIBRATION
 
 class Controls
 {
@@ -13,22 +13,36 @@ class Controls
     ros::Subscriber sub;
     jaws_msgs::Thrusters thrusters;
     int refresh_rate;
-    double aft_thrust_mult;
-    double stbd_thrust_mult;
-    double port_thrust_mult;
+    double aft_cal;
+    double port_cal;
+    double stbd_cal;
+    float neut_power;
+    float neut_angle;
+    float max_power;
+    float max_angle;
+
+    float curved_power(float raw, float max)
+    {
+      return (raw * raw * raw) / (max * max);
+    }
 
   public:
     Controls() : nh()
     {
+      max_power = 500.0;
+      max_angle = 90.0;
+      neut_power = 1500.0;
+      neut_angle = 90.0;
+
       nh.param<int>("/controls_node/controls_refresh_rate", refresh_rate, 10);
       ROS_INFO("Refresh rate: %i", refresh_rate);
 
-      nh.param<double>("/controls_node/aft_thrust_multiplier", aft_thrust_mult, 1.0);
-      ROS_INFO("Aft multiplier: %f", aft_thrust_mult);
-      nh.param<double>("/controls_node/port_thrust_multiplier", port_thrust_mult, 1.0);
-      ROS_INFO("Port multiplier: %f", port_thrust_mult);
-      nh.param<double>("/controls_node/stbd_thrust_multiplier", stbd_thrust_mult, 1.0);
-      ROS_INFO("Starboard multiplier: %f", stbd_thrust_mult);
+      nh.param<double>("/controls_node/aft_thrust_multiplier", aft_cal, 1.0);
+      ROS_INFO("Aft cal. factor: %f", aft_cal);
+      nh.param<double>("/controls_node/port_thrust_multiplier", port_cal, 1.0);
+      ROS_INFO("Port cal. factor: %f", port_cal);
+      nh.param<double>("/controls_node/stbd_thrust_multiplier", stbd_cal, 1.0);
+      ROS_INFO("Stbd cal. factor: %f", stbd_cal);
 
       sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &Controls::callback, this);
       pub = nh.advertise<jaws_msgs::Thrusters>("thrusters", 1);
@@ -36,37 +50,44 @@ class Controls
 
     void callback(const sensor_msgs::Joy::ConstPtr& joy)
     {
-      float raw_thrust = joy->axes[1] * MAX_THRUST;
-      float stbd_power = stbd_thrust_mult * (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
-      float port_power = port_thrust_mult * (raw_thrust * raw_thrust * raw_thrust) / (MAX_THRUST * MAX_THRUST);
-      float stbd_yaw = 1 + joy->axes[13];
-      float port_yaw = 1 + joy->axes[12];
+      float port_angle = joy->axes[2] * max_angle;
+      float stbd_angle = joy->axes[2] * max_angle;
+      float aft_power = joy->axes[3] * max_power * (float)aft_cal;
+      float port_power = joy->axes[1] * max_power * (float)port_cal;
+      float stbd_power = joy->axes[1] * max_power * (float)stbd_cal;
 
-      float aft_thrust = joy->axes[3] * MAX_THRUST;
-      float aft_power = (aft_thrust * aft_thrust * aft_thrust) / (MAX_THRUST * MAX_THRUST);
+      float port_yaw = 1.0 + joy->axes[12];
+      float stbd_yaw = 1.0 + joy->axes[13];
 
-      thrusters.stbd_angle = (int)(90 + joy->axes[2] * 90);
-      thrusters.port_angle = (int)(90 + joy->axes[2] * 90);
-      thrusters.aft_power = (int)(1500 + aft_power);
-      thrusters.stbd_power = (int)(1500 + stbd_power * stbd_yaw);
-      thrusters.port_power = (int)(1500 + port_power * port_yaw);
+      aft_power = curved_power(aft_power, max_power);
+      port_power = curved_power(port_power, max_power) * port_yaw;
+      stbd_power = curved_power(stbd_power, max_power) * stbd_yaw;
 
-      if(joy->buttons[4]){
-	stbd_thrust_mult+=0.001;
-      }
-      else if(joy->buttons[5]){
- 	stbd_thrust_mult-=0.001;
-      }
-      if(joy->buttons[6]){
-	port_thrust_mult+=0.001;
-      }
-      else if(joy->buttons[7]){
-	port_thrust_mult-=0.001;
-      }
+      thrusters.port_angle = (int)(neut_angle + port_angle);
+      thrusters.stbd_angle = (int)(neut_angle + stbd_angle);
+      thrusters.aft_power = (int)(neut_power + aft_power);
+      thrusters.port_power = (int)(neut_power + port_power);
+      thrusters.stbd_power = (int)(neut_power + stbd_power);
 
-      ROS_INFO("Current PTM: %4f - Current STM: %4f",port_thrust_mult,stbd_thrust_mult);
+#ifdef THRUSTER_CALIBRATION
+      if(joy->buttons[6])
+      {
+ 	aft_cal -= 0.001;
+      }
+      if(joy->buttons[8])
+      {
+	port_cal -= 0.001;
+      }
+      else if(joy->buttons[7])
+      {
+	stbd_cal -= 0.001;
+      }
+      ROS_INFO("Aft cal. factor: %4f", aft_cal);
+      ROS_INFO("Port cal. factor: %4f", port_cal);
+      ROS_INFO("Stbd cal. factor: %4f", stbd_cal);
+#endif
+
       pub.publish(thrusters);
-
     }
 
     void loop()
