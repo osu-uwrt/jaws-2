@@ -19,7 +19,7 @@ class Arbotix
     int br;
     char c;
     int timeout;
-    std::string feedback;
+    std_msgs::String feedback;
   public:
     Arbotix() : nh(), i_o(), s_p(i_o)
     {
@@ -29,7 +29,7 @@ class Arbotix
       s_p.open(port_name);
       s_p.set_option(boost::asio::serial_port_base::baud_rate(br));
      
-      pub=nh.advertise<std_msgs::String>("arbotix_diagnostic",2);
+      pub=nh.advertise<std_msgs::String>("arbotix_diagnostic",1);
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
     void restartPort()
@@ -69,7 +69,7 @@ class Arbotix
       while(c!='\n'){
          c=s_p.read_some(boost::asio::buffer(&c,1));
          if(c!='\n'){
- 	   feedback+=c;
+ 	   feedback.data=feedback.data+c;
 	 }
 	else{
 	   break;
@@ -80,12 +80,12 @@ class Arbotix
         #ifdef RESET
 	if((clock()-start/CLOCKS_PER_SEC)>timeout){
 	   restartPort();
-	   feedback="Port reset, resuming";
+	   feedback.data="Port reset, resuming";
 	   break;
 	}
         #endif
       }
-     ROS_INFO("%s",feedback.c_str());
+     ROS_INFO("%s",feedback.data.c_str());
      #endif
     }
     void loop()
