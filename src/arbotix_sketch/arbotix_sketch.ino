@@ -3,11 +3,16 @@
 
 const int PORT_SERVO = 18;
 const int STBD_SERVO = 15;
+const int AFT_THRUSTER = 12;
+const int PORT_THRUSTER = 14;
+const int STBD_THRUSTER = 13;
+
+const int MIN_THRUST = 1000;
+const int ZERO_THRUST = 1500;
+const int MAX_THRUST = 2000;
 
 const int PACKET_SIZE = 10;
 byte packet[PACKET_SIZE];
-
-const float POWER_CONVERSION = 9.0/127.0; // 90.0/127.0
 
 Servo aft_thruster;
 Servo port_thruster;
@@ -24,13 +29,13 @@ void setup()
   SetPosition(PORT_SERVO, 90 * ANGLE_CONVERSION);
   SetPosition(STBD_SERVO, 90 * ANGLE_CONVERSION);
 
-  aft_thruster.attach(12);
-  port_thruster.attach(14);
-  stbd_thruster.attach(13);
+  aft_thruster.attach(AFT_THRUSTER);
+  port_thruster.attach(PORT_THRUSTER);
+  stbd_thruster.attach(STBD_THRUSTER);
 
-  aft_thruster.write(90);
-  port_thruster.write(90);
-  stbd_thruster.write(90);
+  aft_thruster.writeMicroseconds(ZERO_THRUST);
+  port_thruster.writeMicroseconds(ZERO_THRUST);
+  stbd_thruster.writeMicroseconds(ZERO_THRUST);
   
   pinMode(0, OUTPUT);
   digitalWrite(0, heartbeat);
@@ -56,9 +61,9 @@ void loop()
     SetPosition(PORT_SERVO, port_angle * ANGLE_CONVERSION);
     SetPosition(STBD_SERVO, stbd_angle * ANGLE_CONVERSION);
 
-    aft_thruster.write(aft_power * POWER_CONVERSION + 90);
-    port_thruster.write(port_power * POWER_CONVERSION + 90);
-    stbd_thruster.write(stbd_power * POWER_CONVERSION + 90);
+    aft_thruster.writeMicroseconds(aft_power);
+    port_thruster.writeMicroseconds(port_power);
+    stbd_thruster.writeMicroseconds(stbd_power);
   }
 }
 

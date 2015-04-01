@@ -4,7 +4,7 @@
 
 ## TODO
 * Failsafes
-    * ArbotiX serial timeout.
+    * A̶r̶b̶o̶t̶i̶X̶ ̶s̶e̶r̶i̶a̶l̶ ̶t̶i̶m̶e̶o̶u̶t̶
     * NUC watchdog reset
 * Controls
     * Servo angle feedback.
