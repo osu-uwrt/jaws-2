@@ -74,11 +74,11 @@ class Arbotix
 	else{
 	   break;
 	   #ifdef DIAGNOSTIC_PUBLISH
-	    pub.publish(feedback);
+	     pub.publish(feedback);
 	   #endif
 	}
         #ifdef RESET
-	if((clock()-start/CLOCKS_PER_SEC)>timeout){
+	if(((clock()-start)/CLOCKS_PER_SEC)>timeout){
 	   restartPort();
 	   feedback.data="Port reset, resuming";
 	   break;
