@@ -3,9 +3,9 @@
 #include "jaws_msgs/Thrusters.h"
 #include "std_msgs/String.h"
 
-#define FEEDBACK
-#define RESET
-#define DIAGNOSTIC_PUBLISH
+#undef FEEDBACK
+#undef RESET
+#undef DIAGNOSTIC_PUBLISH
 
 
 class Arbotix
