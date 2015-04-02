@@ -33,6 +33,7 @@ class Arbotix
       pub=nh.advertise<std_msgs::String>("arbotix_diagnostic",1);
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
+    #ifdef(RESET)
     void restartPort()
     {
 	nh.getParam("/arbotix_node/port_name",port_name);
@@ -41,6 +42,7 @@ class Arbotix
         s_p.open(port_name);
 	s_p.set_option(boost::asio::serial_port_base::baud_rate(baud_rate));
     }
+    #endif
 
     void callback(const jaws_msgs::Thrusters::ConstPtr& thrusters)
     {
