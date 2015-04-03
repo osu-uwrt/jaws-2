@@ -29,11 +29,12 @@ class Arbotix
       nh.param("/arbotix_node/timeout",timeout,2000);
       s_p.open(port_name);
       s_p.set_option(boost::asio::serial_port_base::baud_rate(baud_rate));
-     
+      #ifdef DIAGNOSTIC_PUBLISH
       pub=nh.advertise<std_msgs::String>("arbotix_diagnostic",1);
+      #endif
       sub = nh.subscribe<jaws_msgs::Thrusters>("thrusters", 1, &Arbotix::callback, this);
     }
-    #ifdef(RESET)
+    #ifdef RESET
     void restartPort()
     {
 	nh.getParam("/arbotix_node/port_name",port_name);
