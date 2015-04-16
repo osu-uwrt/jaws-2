@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(imu_3dm_gx4)
+project(jaws_imu)
 find_package(catkin REQUIRED COMPONENTS
   diagnostic_updater
   message_generation

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>imu_3dm_gx4</name>
+  <name>jaws_imu</name>
   <version>0.0.3</version>
   <description>Driver for Microstrain 3DM-GX4-25 IMU</description>
 
