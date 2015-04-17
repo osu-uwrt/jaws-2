@@ -4,8 +4,8 @@
   <version>0.0.3</version>
   <description>Driver for Microstrain 3DM-GX4-25 IMU</description>
 
-  <maintainer email="gcross.code@icloud.com">gcross</maintainer>
-  <author>Gareth Cross</author>
+  <maintainer email="chilypepper@github.com">cpp</maintainer>
+  <author>Peter Edin</author>
   <license>Apache 2</license>
 
   <buildtool_depend>catkin</buildtool_depend>
