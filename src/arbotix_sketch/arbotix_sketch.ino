@@ -26,6 +26,8 @@ void setup()
 {
   Serial.begin(9600);
 
+  ax12Init(1000000);
+
   SetPosition(PORT_SERVO, 90 * ANGLE_CONVERSION);
   SetPosition(STBD_SERVO, 90 * ANGLE_CONVERSION);
 
