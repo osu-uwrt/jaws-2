@@ -179,6 +179,8 @@ class Controls
         stbd_power *= (-1 * roll + 1);
       }
 
+      aft_power = aft_power < 0 ? aft_power : aft_power * 2;
+
       thrusters.port_angle = (int)(left_neut_angle + port_angle);
       thrusters.stbd_angle = (int)(right_neut_angle + stbd_angle);
       thrusters.aft_power = (int)(neut_power + aft_power);
