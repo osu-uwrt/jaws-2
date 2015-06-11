@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "geometry_msgs/Vector3.h"
-#include <imu_3dm_gx4/FilterOutput.h>
+#include <jaws_imu/FilterOutput.h>
 #include <math.h>
 
 #define PI 3.14159
@@ -15,9 +15,9 @@ public:
   ConvertToEuler() : n()
   {
      pubEuler = n.advertise<geometry_msgs::Vector3>("eulerAngles", 1);
-     sub = n.subscribe<imu_3dm_gx4::FilterOutput>("imu_3dm_gx4/filter", 1, &ConvertToEuler::publishData, this);
+     sub = n.subscribe<jaws_imu::FilterOutput>("imu_3dm_gx4/filter", 1, &ConvertToEuler::publishData, this);
   }
-  void publishData(const imu_3dm_gx4::FilterOutput::ConstPtr& angles)
+  void publishData(const jaws_imu::FilterOutput::ConstPtr& angles)
   {
     float yaw;
     float pitch;
