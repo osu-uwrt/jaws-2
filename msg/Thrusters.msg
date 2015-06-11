@@ -1,5 +1,5 @@
-int16 stbd_angle
-int16 port_angle
-int16 aft_power
-int16 stbd_power
-int16 port_power
+float stbd_angle
+float port_angle
+float aft_power
+float stbd_power
+float port_power
