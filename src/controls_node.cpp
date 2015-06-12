@@ -1,13 +1,17 @@
 #include "ros/ros.h"
 #include "sensor_msgs/Joy.h"
 #include "geometry_msgs/Vector3.h"
+
 #include "jaws_msgs/Thrusters.h"
+
 //#include "safestart.cpp"
 #include "airplane.cpp"
 #include "helicopter.cpp"
+#include "tank.cpp"
+
 #include "stabilization.cpp"
 
-enum Mode {SafeStart, Airplane, Helicopter, Dummy};
+enum Mode {SafeStart, Airplane, Helicopter, Tank, Dummy};
 
 Mode& operator++(Mode &m)
 {
@@ -28,6 +32,7 @@ class Controls
     ros::Publisher pub;
     ros::Subscriber joy;
     ros::Subscriber imu;
+    Airplane plane;
     Stabilization stab;
     int this_select;
     int last_select;
@@ -83,11 +88,16 @@ void Controls::joy_callback(const sensor_msgs::Joy::ConstPtr& joy)
   switch(mode)
   {
     case Airplane:
-    break;
+      plane.calculate();
+      break;
     case Helicopter:
-    break;
+      copter.calculate();
+      break;
+    case Tank:
+      tank.calculate();
+      break;
     default: // SafeStart
-    break;
+      break;
   }
 
   this_start = joy->buttons[3];
@@ -103,6 +113,7 @@ void Controls::joy_callback(const sensor_msgs::Joy::ConstPtr& joy)
 
   last_select = this_select;
   last_start = this_start;
+
   pub.publish(thrusters);
 }
 
