@@ -130,12 +130,12 @@ http://wiki.ros.org/joystick_drivers?distro=indigo
 
 http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 
-    mkdir –p ~/<catkin_ws>/src
-    cd ~/<catkin_ws>/src/
+    mkdir -p ~/jaws-2/src
+    cd ~/jaws-2/src/
     catkin_init_workspace
-    cd ~/<catkin_ws>/
+    cd ~/jaws-2/
     catkin_make
-    echo "source /home/<username>/<catkin_ws>/devel/setup.bash" >> ~/.bashrc
+    echo "source /home/<your_username>/jaws-2/devel/setup.bash" >> ~/.bashrc
     source ~/.bashrc
 
 ## Install Required Packages:
