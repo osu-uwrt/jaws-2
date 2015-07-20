@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>jaws_launch</name>
+  <version>0.1.0</version>
+  <description>ROS launch files for Jaws 2.</description>
+
+  <maintainer email="edin.3@osu.edu">Peter Edin</maintainer>
+  <maintainer email="cary.42@osu.edu">Conor Cary</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://go.osu.edu/uwrt</url>
+  <url type="website">http://github.com/uwrt-osu/jaws-launch</url>
+
+  <author email="edin.3@osu.edu">Peter Edin</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>
