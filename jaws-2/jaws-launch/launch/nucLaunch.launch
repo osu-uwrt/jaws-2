@@ -1,7 +1,0 @@
-<launch>
-	<node name="arbotix_node" pkg="arbotix" type="arbotix_node">
-
-		<param name="port_name" value="/dev/ttyACM0"/>
-		<param name="baud_rate" value="9600"/>	
-	</node>
-</launch>
