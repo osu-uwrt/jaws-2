@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>jaws_controls</name>
+  <version>0.1.0</version>
+  <description>Pilot controls for Jaws 2.</description>
+
+  <maintainer email="strickland.120@osu.todo">Tanner Strickland</maintainer>
+  <maintainer email="cary.42@osu.edu">Conor Cary</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://go.osu.edu/uwrt</url>
+  <url type="repository">https://github.com/uwrt/jaws-controls</url>
+
+  <author email="strickland.120@osu.edu">Tanner Strickland</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>joy</build_depend>
+  <build_depend>jaws_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>joy</run_depend>
+  <run_depend>jaws_msgs</run_depend>
+
+  <export>
+  </export>
+</package>
