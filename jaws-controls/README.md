@@ -1,46 +1,31 @@
 # Jaws Controls
 
+## TODO
+* Parameters
+    * Yaw power reduction coefficients.
+* Servo.writeMicroseconds()
+* Yaw power reduction multiply not add.
+
 ## Connecting a PS3 Controller
 
-### Initial Pairing 
+https://help.ubuntu.com/community/Sixaxis
 
-Connect the controller using a USB cable, then type:
+Connect using a USB cable, then type:
 
     sudo sixpair
     
-### Starting Paired
-
-Without the controller connected to a USB cable, type:
+Disconnect the USB cable, then type:
 
     sixad -s
     
-Press the PS button, wait for rumbling. 
+Press the PS button, wait for rumbling.
 
 ## Troubleshooting
 
-### Sixpair Fails
+### No Bluetooth?
 
-For:
-
-    Current Bluetooth master: 00:22:b0:d0:5a:09
-    Unable to retrieve local bd_addr from `hcitool dev`.
-
-Try:
-
-    sudo hciconfig hci0
-
-If DOWN:
-
-    sudo hciconfig hci0 up
-
-Else:
-
-    sudo hciconfig hci0 reset
-
-### Sixad Fails
-
-If controller LEDs blink quickly, reset the controller. (Pen-tip button on underside of controller.)
-
+    sudo apt-get install bluez --reinstall
+    
 ## Reference Links
 
 ### Linux

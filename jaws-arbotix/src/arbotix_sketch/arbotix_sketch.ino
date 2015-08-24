@@ -3,9 +3,9 @@
 
 const int PORT_SERVO = 18;
 const int STBD_SERVO = 15;
-const int AFT_THRUSTER = 12;
-const int PORT_THRUSTER = 14;
-const int STBD_THRUSTER = 13;
+const int AFT_THRUSTER = 13;
+const int PORT_THRUSTER = 12;
+const int STBD_THRUSTER = 14;
 
 const int MIN_THRUST = 1000;
 const int ZERO_THRUST = 1500;
@@ -25,6 +25,8 @@ int heartbeat = 0;
 void setup()
 {
   Serial.begin(9600);
+
+  ax12Init(1000000);
 
   SetPosition(PORT_SERVO, 90 * ANGLE_CONVERSION);
   SetPosition(STBD_SERVO, 90 * ANGLE_CONVERSION);
