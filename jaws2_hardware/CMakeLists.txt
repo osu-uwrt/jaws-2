@@ -4,6 +4,7 @@ project(jaws2_hardware)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   jaws2_msgs
+  message_filters
 )
 
 catkin_package(
