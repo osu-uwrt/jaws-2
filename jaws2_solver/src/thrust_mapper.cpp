@@ -8,7 +8,7 @@
 #include "ceres/ceres.h"
 #include "glog/logging.h"
 
-#define debug
+#undef debug
 
 double r = 0.10;
 double l = 0.60;
@@ -77,7 +77,7 @@ struct at_z {
                                         const T* const t_s,
                                         const T* const t_p,
                                         T* residual) const {
-    residual[0] = ( T(r_y) * f_s[0] * sin( t_s[0] ) - T(r_y) * f_p[0] * cos( t_p[0] ) ) / T(mass * (3 * r * r + l * l) / 12) - T(ang_z);
+    residual[0] = ( T(r_y) * f_s[0] * sin( t_s[0] ) - T(r_y) * f_p[0] * sin( t_p[0] ) ) / T(mass * (3 * r * r + l * l) / 12) - T(ang_z);
     return true;
   }
 };
@@ -123,12 +123,6 @@ Solver::Solver(char** argv)
   angles.name[0] = "port-base";
   angles.name[1] = "stbd-base";
   angles.position.resize(2);
-
-  f_a =  0.0;
-  f_s =  0.0;
-  f_p =  0.0;
-  t_s =  0.0;
-  t_p =  0.0;
 
   google::InitGoogleLogging(argv[0]);
 
@@ -179,6 +173,14 @@ void Solver::callback(const geometry_msgs::Accel::ConstPtr& a)
   ang_x = a->angular.x;
   ang_y = a->angular.y;
   ang_z = a->angular.z;
+
+  // These forced initial guesses don't make much of a difference.
+  // We currently experience a sort of gimbal lock w/ or w/o them.
+  f_a = 0.0;
+  f_s = 0.0;
+  f_p = 0.0;
+  t_s = 0.0;
+  t_p = 0.0;
 
 #ifdef debug
   std::cout << "Initial f_a = " << f_a
