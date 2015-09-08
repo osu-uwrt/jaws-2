@@ -37,15 +37,15 @@ ThrustCal::ThrustCal() : nh()
   ts = nh.subscribe<jaws2_msgs::ThrustStamped>("thrust", 1, &ThrustCal::callback, this);
   pwm = nh.advertise<jaws2_msgs::PwmStamped>("pwm", 1);
 
-  nh.param<double>("thruster/max/force", max_force, 25.0);
-  nh.param<double>("thruster/max/pwm", max_pwm, 100.0);
+  nh.param<double>("max_force", max_force, 25.0);
+  nh.param<double>("max_pwm", max_pwm, 100.0);
 
-  nh.param<double>("thruster/cal/aft/fwd", aft_fwd, 1.0);
-  nh.param<double>("thruster/cal/aft/rev", aft_rev, 1.0);
-  nh.param<double>("thruster/cal/stbd/fwd", stbd_fwd, 1.0);
-  nh.param<double>("thruster/cal/stbd/rev", stbd_rev, 1.0);
-  nh.param<double>("thruster/cal/port/fwd", port_fwd, 1.0);
-  nh.param<double>("thruster/cal/port/rev", port_rev, 1.0);
+  nh.param<double>("aft_fwd", aft_fwd, 1.0);
+  nh.param<double>("aft_rev", aft_rev, 1.0);
+  nh.param<double>("stbd_fwd", stbd_fwd, 1.0);
+  nh.param<double>("stbd_rev", stbd_rev, 1.0);
+  nh.param<double>("port_fwd", port_fwd, 1.0);
+  nh.param<double>("port_rev", port_rev, 1.0);
 }
 
 void ThrustCal::callback(const jaws2_msgs::ThrustStamped::ConstPtr& force)
