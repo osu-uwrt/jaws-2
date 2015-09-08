@@ -1,5 +1,4 @@
 #include "ros/ros.h"
-#include "boost/asio.hpp"
 #include "jaws2_msgs/ThrustStamped.h"
 #include "jaws2_msgs/PwmStamped.h"
 
@@ -53,21 +52,9 @@ void ThrustCal::callback(const jaws2_msgs::ThrustStamped::ConstPtr& force)
 {
   duration.header.stamp = force->header.stamp;
 
-  double a = force->thrust.aft;
-  double s = force->thrust.stbd;
-  double p = force->thrust.port;
-
-  a = calibrate(a, aft_fwd, aft_rev);
-  s = calibrate(s, stbd_fwd, stbd_rev);
-  p = calibrate(p, port_fwd, port_rev);
-
-  a *= max_pwm / max_force;
-  s *= max_pwm / max_force;
-  p *= max_pwm / max_force;
-
-  duration.pwm.aft = int(a) + 1000;
-  duration.pwm.stbd = int(s) + 1000;
-  duration.pwm.port = int(p) + 1000;
+  duration.pwm.aft = calibrate(force->thrust.aft, aft_fwd, aft_rev);
+  duration.pwm.stbd = calibrate(force->thrust.stbd, stbd_fwd, stbd_rev);
+  duration.pwm.port = calibrate(force->thrust.port, port_fwd, port_rev);
 
   pwm.publish(duration);
 }
@@ -77,15 +64,15 @@ void ThrustCal::loop()
   ros::spin();
 }
 
-double ThrustCal::calibrate(double x, double f, double r)
+int ThrustCal::calibrate(double raw_force, double fwd_cal, double rev_cal)
 {
-  if(x < 0.0)
+  if(raw < 0.0)
   {
-    x *= r;
+    raw_force /= rev_cal;
   }
   else
   {
-    x *= f;
+    raw_force /= fwd_cal;
   }
-  return x;
+  return 1500 + int(raw_force * max_pwm / max_force);
 }
