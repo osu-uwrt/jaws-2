@@ -1,1 +1,12 @@
-<!-- -->
+<launch>
+  <node name="thrust_cal" pkg="jaws2_hardware" type="thrust_cal">
+    <param name="thruster/max/force" type="double" value="25.0" />
+    <param name="thruster/max/pwm" type="double" value="100.0" />
+    <param name="thruster/cal/aft/rev" type="double" value="0.5" />
+    <param name="thruster/cal/aft/fwd" type="double" value="0.3" />
+    <param name="thruster/cal/stbd/fwd" type="double" value="1.0" />
+    <param name="thruster/cal/stbd/rev" type="double" value="0.6" />
+    <param name="thruster/cal/port/fwd" type="double" value="1.0" />
+    <param name="thruster/cal/port/rev" type="double" value="0.6" />
+  </node>
+</launch>
