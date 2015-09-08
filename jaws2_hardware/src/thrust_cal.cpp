@@ -17,7 +17,7 @@ class ThrustCal
     double stbd_rev;
     double port_fwd;
     double port_rev;
-    double calibrate(double x, double f, double r);
+    int calibrate(double raw_force, double fwd_cal, double rev_cal);
 
   public:
     ThrustCal();
@@ -66,7 +66,7 @@ void ThrustCal::loop()
 
 int ThrustCal::calibrate(double raw_force, double fwd_cal, double rev_cal)
 {
-  if(raw < 0.0)
+  if(raw_force < 0.0)
   {
     raw_force /= rev_cal;
   }
