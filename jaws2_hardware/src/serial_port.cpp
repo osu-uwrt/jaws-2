@@ -44,8 +44,8 @@ int main(int argc, char **argv)
 
   ros::NodeHandle nh;
 
-  nh.param<std::string>("/serial_port/name", port_name, "/dev/ttyUSB0");
-  nh.param<int>("/serial_port/rate", baud_rate, 9600);
+  nh.param<std::string>("serial_port/name", port_name, "/dev/ttyUSB0");
+  nh.param<int>("serial_port/rate", baud_rate, 9600);
 
   s_p.open(port_name);
   ROS_INFO("Serial port name: %s", port_name.c_str());
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
   ROS_INFO("Serial port rate: %i", baud_rate);
 
   message_filters::Subscriber<sensor_msgs::JointState> joint_sub(nh, "joint_states", 1);
-  message_filters::Subscriber<jaws2_msgs::PwmStamped> thrust_sub(nh, "thruster_pwm", 1);
+  message_filters::Subscriber<jaws2_msgs::PwmStamped> thrust_sub(nh, "thrust_cal/pwm", 1);
   message_filters::TimeSynchronizer<sensor_msgs::JointState, jaws2_msgs::PwmStamped> sync(joint_sub, thrust_sub, 10);
   sync.registerCallback(boost::bind(&callback, _1, _2));
 

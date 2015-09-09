@@ -117,7 +117,7 @@ Solver::Solver(char** argv)
 {
   accels = nh.subscribe<geometry_msgs::Accel>("accel_error", 1, &Solver::callback, this);
   joints = nh.advertise<sensor_msgs::JointState>("joint_states", 1);
-  forces = nh.advertise<jaws2_msgs::ThrustStamped>("thrust", 1);
+  forces = nh.advertise<jaws2_msgs::ThrustStamped>("solver/thrust", 1);
 
   angles.name.resize(2);
   angles.name[0] = "port-base";
