@@ -1,4 +1,4 @@
-<robot name="jaws">
+﻿<robot name="jaws2">
 
   <material name="delrin">
     <color rgba=".8 .8 .75 1" />
@@ -16,21 +16,27 @@
      <color rgba=".4 .4 .4 1" />
   </material>
 
+ <gazebo reference="base_link">
+    <material>Gazebo/Grey</material>
+ </gazebo>
+
+<!--BASE-->
+
   <link name="base_link">
     
     <inertial>
-      <origin xyz="0 0 0" rpy="0 1.57 0" />
+      <origin xyz="0.0077 0 0" rpy="0 1.57 0" />
 
-      <mass value="1" />
+      <mass value="4.31" />
 
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.063" ixy="0.0" ixz="0.0" iyy="0.014" iyz="0.0" izz="0.063"/>
     </inertial>
 
     <visual>
       <origin xyz="0 0 0" rpy="0 1.57 0" />
 
       <geometry>
-        <cylinder radius="0.06" length="0.24" />
+        <cylinder radius="0.076" length="0.375" />
       </geometry>
 
       <material name="aluminum" />
@@ -40,7 +46,7 @@
       <origin xyz="0 0 0" rpy="0 1.57 0" />
 
       <geometry>
-        <cylinder radius="0.06" length="0.24" />
+        <cylinder radius="0.076" length="0.375" />
       </geometry>
     </collision>
   </link>
@@ -48,40 +54,34 @@
   <gazebo reference="base_link">
     <material>Gazebo/Grey</material>
   </gazebo>
-
-  <gazebo reference="base_link">
-    <plugin name="BuoyancyPlugin" filename="libBuoyancyPlugin.so">
-    <!-- a viscous liquid -->
-    <link name="base_link">
-    </link>
-  </plugin>
-  </gazebo>
+  
+  
+<!--BASE DOME-->
 
   <link name="base_dome">
     <visual>
       <geometry>
-        <sphere radius="0.06" />
+        <sphere radius="0.076" />
       </geometry>
 
       <material name="delrin" />
     </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+
+      <mass value="0.77" />
+
+      <inertia ixx="0.003" ixy="0.0" ixz="0.0" iyy="0.003" iyz="0.0" izz="0.003"/>
+    </inertial>
   </link>
 
-  <link name="base_endcap">
-    <visual>
-      <origin xyz="-0.01 0 0" rpy="0 1.57 0" />
+<!--THRUSTERS-->
 
-      <geometry>
-        <cylinder radius="0.06" length="0.02" />
-      </geometry>
-
-      <material name="delrin" />
-    </visual>
-  </link>
-
+<!--AFT-->
   <link name="aft_base">
     <visual>
-      <origin xyz="-0.02 0 -0.01" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
 
       <geometry>
         <box size="0.04 0.02 0.03" />
@@ -93,20 +93,28 @@
 
   <link name="aft_body">
     <visual>
-      <origin xyz="0 0 -0.01" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
 
       <geometry>
-        <cylinder radius="0.02" length="0.06" />
+        <cylinder radius="0.022" length=".106" />
       </geometry>
 
       <material name="light" />
     </visual>
+
+       <inertial>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+
+      <mass value="0.549" />
+
+      <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
   </link>
 
   <link name="aft_dome">
     <visual>
       <geometry>
-        <sphere radius="0.02" />
+        <sphere radius="0.022" />
       </geometry>
 
       <material name="dark" />
@@ -123,9 +131,13 @@
     </visual>
   </link>
 
+
+
+
+<!--PORT-->
   <link name="port_base">
     <visual>
-      <origin xyz="0 0.02 0" rpy="1.57 0 0" />
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
 
       <geometry>
         <cylinder radius="0.01" length="0.06" />
@@ -137,20 +149,28 @@
 
   <link name="port_body">
     <visual>
-      <origin xyz="0 0 -0.01" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
 
       <geometry>
-        <cylinder radius="0.02" length="0.06" />
+        <cylinder radius="0.022" length=".106" />
       </geometry>
 
       <material name="light" />
     </visual>
+
+       <inertial>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+
+      <mass value="0.549" />
+
+      <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
   </link>
 
   <link name="port_dome">
     <visual>
       <geometry>
-        <sphere radius="0.02" />
+        <sphere radius="0.022" />
       </geometry>
 
       <material name="dark" />
@@ -167,9 +187,13 @@
     </visual>
   </link>
 
+
+
+<!--STARBOARD-->
+
   <link name="stbd_base">
     <visual>
-      <origin xyz="0 0.02 0" rpy="1.57 0 0" />
+      <origin xyz="0 0 0" rpy="1.57 0 0" />
 
       <geometry>
         <cylinder radius="0.01" length="0.06" />
@@ -181,20 +205,28 @@
 
   <link name="stbd_body">
     <visual>
-      <origin xyz="0 0 -0.01" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
 
       <geometry>
-        <cylinder radius="0.02" length="0.06" />
+        <cylinder radius="0.022" length=".106" />
       </geometry>
 
       <material name="light" />
     </visual>
+
+       <inertial>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+
+      <mass value="0.549" />
+
+      <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
   </link>
 
   <link name="stbd_dome">
     <visual>
       <geometry>
-        <sphere radius="0.02" />
+        <sphere radius="0.022" />
       </geometry>
 
       <material name="dark" />
@@ -211,21 +243,16 @@
     </visual>
   </link>
 
+
   <joint name="base-dome" type="fixed">
-    <origin xyz="0.12 0 0" rpy="0 0 0" />
+    <origin xyz="0.1875 0 0" rpy="0 0 0" />
     <parent link="base_link" />
     <child link="base_dome" />
   </joint>
 
-  <joint name="base-endcap" type="fixed">
-    <origin xyz="-0.12 0 0" rpy="0 0 0" />    
-    <parent link="base_link" />
-    <child link="base_endcap" />
-  </joint>
-
   <joint name="base-aft" type="fixed">
-    <origin xyz="-0.02 0 0" rpy="0 0 0" />
-    <parent link="base_endcap" />
+    <origin xyz="-0.11 0 0.076" rpy="3.14 1.57 0" />
+    <parent link="base_link" />
     <child link="aft_base" />
   </joint>
 
@@ -236,7 +263,7 @@
   </joint>
 
   <joint name="aft-dome" type="fixed">
-    <origin xyz="0 0 -0.04" rpy="0 0 0"/>
+    <origin xyz="0 0 -0.053" rpy="0 0 0"/>
     <parent link="aft_body" />
     <child link="aft_dome" />
   </joint>
@@ -247,11 +274,10 @@
     <child link="aft_duct" />
   </joint>
 
-  <joint name="port-base" type="continuous">
+  <joint name="port-base" type="fixed">
     <origin xyz="0.06 0.06 0" rpy="0 0 0"/>
     <parent link="base_link" />
     <child link="port_base" />
-    <axis xyz="0 1 0" />
   </joint>
 
   <joint name="port-body" type="fixed">
@@ -261,7 +287,7 @@
   </joint>
 
   <joint name="port-dome" type="fixed">
-    <origin xyz="0 0 -0.04" rpy="0 0 0"/>
+    <origin xyz="0 0 -0.053" rpy="0 0 0"/>
     <parent link="port_body" />
     <child link="port_dome" />
   </joint>
@@ -272,11 +298,10 @@
     <child link="port_duct" />
   </joint>
 
-  <joint name="stbd-base" type="continuous">
+  <joint name="stbd-base" type="fixed">
     <origin xyz="0.06 -0.06 0" rpy="0 0 3.14159"/>
     <parent link="base_link" />
     <child link="stbd_base" />
-    <axis xyz="0 1 0" />
   </joint>
 
   <joint name="stbd-body" type="fixed">
@@ -286,7 +311,7 @@
   </joint>
 
   <joint name="stbd-dome" type="fixed">
-    <origin xyz="0 0 -0.04" rpy="0 0 0"/>
+    <origin xyz="0 0 -0.053" rpy="0 0 0"/>
     <parent link="stbd_body" />
     <child link="stbd_dome" />
   </joint>
@@ -296,5 +321,10 @@
     <parent link="stbd_body" />
     <child link="stbd_duct" />
   </joint>
+
+  <gazebo reference="base_link">
+  <plugin name="BuoyancyPlugin" filename="libBuoyancyPlugin.so">
+  </plugin>
+  </gazebo>
 
 </robot>
