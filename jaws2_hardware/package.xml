@@ -9,17 +9,22 @@
   <license>BSD</license>
 
   <url type="website">http://go.osu.edu/uwrt</url>
-  <url type="website">http://github.com/uwrt-osu/jaws-arbotix</url>
+  <url type="website">http://github.com/uwrt-osu/jaws-2</url>
 
   <author email="cary.42@osu.edu">Conor Cary</author>
   <author email="edin.3@osu.edu">Peter Edin</author>
   <author email="fletcher.236@osu.edu">Charles Fletcher</author>
 
   <buildtool_depend>catkin</buildtool_depend>
+
   <build_depend>roscpp</build_depend>
-  <build_depend>jaws_msgs</build_depend>
   <run_depend>roscpp</run_depend>
-  <run_depend>jaws_msgs</run_depend>
+
+  <build_depend>jaws2_msgs</build_depend>
+  <run_depend>jaws2_msgs</run_depend>
+
+  <build_depend>boost</build_depend>
+  <run_depend>boost</run_depend>
 
   <export>
   </export>

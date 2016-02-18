@@ -14,7 +14,7 @@
   <author email="cary.42@osu.edu">Conor Cary</author>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <run_depend>imu_3dm_gx4/</run_depend>
+  <run_depend>imu_3dm_gx4</run_depend>
 
   <export>
   </export>
