@@ -1,6 +1,9 @@
-# OSU Underwater Robotics Team
+## Jaws 2  
+*2014-2015 ROV*
 
-### *2014 - 2015 Remotely Operated Vehicle*
-Dependencies: [Ubuntu 14.04 Trusty](http://releases.ubuntu.com/14.04/) | [ROS Indigo Igloo](http://wiki.ros.org/indigo) | [Boost.Asio 1.54](http://www.boost.org/doc/libs/1_54_0/doc/html/boost_asio.html)
+**The Underwater Robotics Team**  
+The Ohio State University
 
-Getting started: [Dev Environment Config](https://github.com/uwrt-osu/jaws-2/blob/master/INSTALL.md)
+<img src="http://underwaterrov.org.ohio-state.edu/img/renders/jaws_2.png" height="320" />
+
+[Website](http://go.osu.edu/uwrt) | [Competition](http://www.marinetech.org/rov-competition/) | [License](LICENSE)
